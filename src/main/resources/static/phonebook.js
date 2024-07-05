@@ -8,7 +8,6 @@ function postPhone(){
     phonebookDB.push( phoneDto ) // 3. 객체를 배열에 저장
     alert('save');  getPhone();  // 4. 안내 / 새로고침
 }
-
 // 2. 출력함수 : 등록처리가 되었을때 , js열렸을때 최초1번
 getPhone()
 function getPhone(){
