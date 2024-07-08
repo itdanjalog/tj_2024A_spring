@@ -19,7 +19,7 @@ class Book{
 public class Step1 {
     public static void main(String[] args) {
         // 1. 객체 생성
-        Book book1 = new Book( 200 , "ANT" );                                   // 스택메모리 : book1  = 힙메모리 : 302번지 객체 생성
+        Book book1 = new Book( 200 , "개미" );                                   // 스택메모리 : book1  = 힙메모리 : 302번지 객체 생성
         // 2. Book 클래스의 메소드가 아닌 Object 클래스의 메소드 호출
         // 참조변수를 출력하면 자동으로 toString() 가 자동으로 호출된다.
         System.out.println( book1 );            // example.day03.Book@24d46ca6
