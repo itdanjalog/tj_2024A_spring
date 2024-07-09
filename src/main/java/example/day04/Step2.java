@@ -2,6 +2,7 @@ package example.day04;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Step2 {
@@ -64,6 +65,47 @@ public class Step2 {
                 System.out.println( colsStr[j] );
             }
         }
+
+        // [6] 문자열.indexOf("찾을문자열")       : 문자열내 찾을문자가 존재하면 찾은문자열의 인덱스 반환 , 없으면 -1 반환
+        String subject = "자바 프로그래밍 언어";
+
+        int findIndex = subject.indexOf("자바"); // 찾은 문자열의 인덱스 번호 반환
+        System.out.println("findIndex = " + findIndex); // 자바 : 0 , 프로 : 3 , 파이썬 : -1
+
+        // [7] 문자열.contains("찾을문자열")      : 문자열내 찾을문자가 존재하면 true 반환 , 없으면 false 반환
+        boolean findCheck = subject.contains("자바");
+        System.out.println("findCheck = " + findCheck); // 자바 : true , 프로 : true , 파이썬 : false
+
+        // [8] 문자열.getBytes()                 : 문자열내 문자 하나씩 바이트로 변환된 바이트 배열로 반환
+        byte[] bytes = subject.getBytes();
+        System.out.println(" Arrays.toString( bytes )  = " +  Arrays.toString( bytes ) );
+
+        // 문자 와 바이트 관계
+            // 1. 영문 / 특정 특수문자 : 문자1개당 1바이트
+            // 2. 한글 : 문자1개당 2바이트 + 규칙1(UTF-8-인코딩헤더규칙)바이트 => 총 3바이트
+        byte _byte1 = 'a';
+        System.out.println("_byte1 = " + _byte1);   // a , 97 // 유니코드(아스키코드기반)
+        _byte1++;
+        System.out.println("_byte1 = " + _byte1);   // b , 98
+        System.out.println("(char)_byte1  = " + (char)_byte1 ); // b
+        System.out.println( "a".getBytes().length );    // 1 : 영문
+        System.out.println( "가".getBytes().length );    // 3 : 한글
+            // - char : 문자1개 표현 , 65536글자 표현 , 부호:signed 부호없음:unsigned vs short : +-3만
+        char _char1 = '가';
+        System.out.println("_char1 = " + _char1);       // 가
+        System.out.println("_char1 = " + (int)_char1 ); // 44032
+        char _char2 = 'a';
+        System.out.println("_char2 = " + (int)_char2 );
+        // [활용] 난수 문자열을 만들기 ,
+        System.out.println( new Random().nextInt() ); // int타입의 허용범위내 난수 생성
+        System.out.println( new Random().nextInt(26) ); // 0 ~ 25 사의 난수 생성
+        System.out.println( new Random().nextInt(26)+97 ); // 97 ~ 122 사의 난수 생성
+        System.out.println( (char)(new Random().nextInt(26)+97 ) ); // a ~ z 의 영소문자 난수 생성
+        String newPwd = "";
+        for( int i = 0 ; i<10 ; i++ ){
+            newPwd += (char)(new Random().nextInt(26)+97);
+        }
+        System.out.println( newPwd );
 
     } // main end
 } // class end
