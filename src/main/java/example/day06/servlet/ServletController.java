@@ -44,29 +44,37 @@ public class ServletController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("ServletController.doGet");
         System.out.println(">> HTTP의 get 메소드 방식으로 요청이 들어왔습니다. ");
-        super.doGet(req, resp); // super.메소드() : 부모클래스 메소드 호출
+        //super.doGet(req, resp); // super.메소드() : 부모클래스 메소드 호출
+        // - 요청데이터 : 매개변수처럼 HTTP 요청시 들어오는 데이터 , HTTP 요청정보 관련 객체 : HttpServletRequest
+        // http://localhost:8080/day06/servlet?data=serverHi
+        System.out.println( "request Data : " + req.getParameter("data") );
+        // - 응답데이터 : 리턴값처럼 HTTP 응답시 반환하는 데이터 , HTTP 응답정보 관련 객체 : HttpServletResponse
+        resp.getWriter().print("response Data : [get]clientHi");
     }
     // 2. doPost
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("ServletController.doPost");
         System.out.println(">> HTTP의 post 메소드 방식으로 요청이 들어왔습니다. ");
-        System.out.println( req.getParameter("data") );
-        super.doPost(req, resp);
+        //super.doPost(req, resp);
+        System.out.println("request Data : " + req.getParameter("data") ); // 1. 요청 데이터
+        resp.getWriter().print("response Data : [post]clientHi");        // 2. 응답 데이터
     }
     // 3. doPut
     @Override
     protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("ServletController.doPut");
         System.out.println(">> HTTP의 put 메소드 방식으로 요청이 들어왔습니다. ");
-        super.doPut(req, resp);
+        System.out.println("request Data : " + req.getParameter("data") );
+        resp.getWriter().print("response Data : [put]clientHi");
     }
     // 4. doDelete
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("ServletController.doDelete");
         System.out.println(">> HTTP의 delete 메소드 방식으로 요청이 들어왔습니다.");
-        super.doDelete(req, resp);
+        System.out.println("request Data : " + req.getParameter("data") );
+        resp.getWriter().print("response Data : [delete]clientHi");
     }
 
 }
