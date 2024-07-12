@@ -21,11 +21,16 @@
         @DeleteMapping("HTTP URL주소정의")
 
 
-HTTP 데이터 ()받는 방법
-    쿼리스트링 : URL?key=value&key2=value2&key3=value3
+HTTP 데이터 받는 방법
+
+    * 쿼리스트링 : URL?key=value&key2=value2&key3=value3
         - url(주소)뒤에 ?부터 key(변수명) value(변수의값) & 변수구분
     [1] HttpServletRequest
         .getParameter("쿼리스트링매개변수key")
+    [2] @RequestParam
+
+    * HTTP BODY 본문 ( JSON )
+    [1] @RequestBody
 
 HTTP 데이터 ()응답 하는 방법
     [1] HttpServletResponse
