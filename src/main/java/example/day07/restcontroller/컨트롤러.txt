@@ -22,6 +22,8 @@ HTTP 데이터 ()받는 방법
 HTTP 데이터 ()응답 하는 방법
     [1] HttpServletResponse
         .getWriter().print("응답할데이터");
+    [2] @ResponseBody
+        return 데이터자료;    *메소드의 리턴타입 일치
 
 자바의 기본타입(int,float,boolean등등) 처럼 HTTP의 타입 존재
     HTTP Content-Type
