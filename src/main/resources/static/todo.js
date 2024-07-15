@@ -38,16 +38,16 @@ function todoreadall(){
         success : function response( result ){   console.log( result ); // 결과받은 데이터의 타입은 Array/list
             // [1]어디에
             let todoBox = document.querySelector(`#todoBox`);   console.log( todoBox );
-             // [2] 무엇을 
+            // [2] 무엇을 
             let html = ``;
-            // [1] for( let i = 0 ; i < 리스트명.length ; i++ ){ 실행문 }
-            // [2] 리스트명.forEach( 반복변수명 => { 실행문 })
+            // [2-1] for( let i = 0 ; i < 리스트명.length ; i++ ){ 실행문 }
+            // [2-2] 리스트명.forEach( 반복변수명 => { 실행문 })
             result.forEach( todoDto => {
-                html += `<div id="whiteBox">
+                html += `<div id=${todoDto.tstate == 0 ? 'whiteBox' : 'blackBox' } >
                             <span> ${ todoDto.tcontent } </span>
                             <div>
-                                <button type="button" onclick="change(${ todoDto.tno })">변경</button>
-                                <button type="button" onclick="remove(${ todoDto.tno })">삭제</button>
+                                <button type="button" onclick="todoupdate(${ todoDto.tno })">변경</button>
+                                <button type="button" onclick="tododelete(${ todoDto.tno })">삭제</button>
                             </div>
                         </div>`
                 console.log( html );    
@@ -59,23 +59,40 @@ function todoreadall(){
 
 } // todoreadall end 
 
+// 3. 수정함수
+function todoupdate( tno ){  
+    // $.ajax( {옵션속성객체} ); 
+    $.ajax( {
+        method : 'put' ,    
+        // url 안에 쿼리스트링형식으로 데이터 대입
+        url : `/todo/update?tno=${tno}` ,
+        success : function response( result ){ 
+            console.log( result );
+            if( result ){ todoreadall();} // 새로고침
+            else{ alert('오류발생:관리자에게문의'); }
+        } // success end 
+    }); // ajax end 
+} //  todoupdate end 
 
 
 
-function remove(deleteIndex){
-    //  1. 배열 내 특정 인덱스[i]의 요소 삭제
-    todoList.splice(deleteIndex, 1);
-    //  2. 삭제가 되면 배열의 상태가 변경되므로 배열의 상태를 다시 출력 - 화면 업데이트
-    print();
-}       
-function change(i){ 
-    let s = todoList[i].split(",")[0]
-    let e = todoList[i].split(",")[1]
+// 4. 삭제함수
+function tododelete( tno ){  
 
-    if(e =='X'){                 // e == 'X' 여서 변경 하려면'X'가'O'로 바뀌어야함.
-    todoList[i] = s + ",O"
-    }else{
-    todoList[i] = s + ",X"
-    }
-    print();
-}
+    $.ajax( { 
+        method : 'delete' , 
+        url : '/todo/delete' , 
+        // url 아닌 data 속성에 { key:value }형식의 데이터 대입
+        data : { 'tno' : tno } ,
+
+        //[화살표함수]// success : result => { }
+        //[익명함수] success : function(result){ }
+        //[일반함수] success : function response( result ){ }
+        success : result => {
+            console.log( result );
+            if( result ){ todoreadall();} // 새로고침
+            else{ alert('오류발생:관리자에게문의'); }
+        } // success end 
+    } ); // ajax end 
+    
+} // tododelete end 
