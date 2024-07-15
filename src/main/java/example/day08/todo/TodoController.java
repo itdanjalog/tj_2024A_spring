@@ -21,6 +21,10 @@ public class TodoController {
         return result;
     }
     // 3. 할일 (상태) 수정
+    public boolean todoUpdate( int tno ){
+        boolean result = TodoDao.getInstance().todoUpdate( tno );
+        return result;
+    }
     // 4. 할일 삭제
     public boolean todoDelete( int tno ){
         boolean result = TodoDao.getInstance().todoDelete( tno );

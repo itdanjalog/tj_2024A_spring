@@ -49,6 +49,28 @@ public class TodoDao {
         return list;
     }
     // 3. 할일 (상태) 수정
+    public boolean todoUpdate( int tno ){
+        try{ // 수정전에 수정할 할일 상태 조회
+            String sql2 = "select * from todolist where tno = ?";
+            ps = conn.prepareStatement(sql2);
+            ps.setInt( 1 , tno );
+            rs = ps.executeQuery();
+            if( rs.next() ){
+                // 기존 상태 출력
+                int tstate = rs.getInt("tstate");
+                // 상태 변경 : 기존상태가 0이면 1 , 1이면 0 으로 변경
+                tstate = tstate == 0 ? 1 : 0;
+                // 수정 SQL
+                String sql ="update todolist set tstate = ? where tno = ? ";
+                ps = conn.prepareStatement(sql);
+                ps.setInt( 1 , tstate );
+                ps.setInt( 2 , tno );
+                int count = ps.executeUpdate();
+                if( count == 1 ) return true;
+            }
+        }catch (Exception e ){  System.out.println( e );   }
+        return false;
+    }
     // 4. 할일 삭제
     public boolean todoDelete( int tno ){
         try{ String sql ="delete from todolist where tno = ? ";
