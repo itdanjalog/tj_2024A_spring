@@ -1,6 +1,7 @@
 console.log( 'todo.js' );
 // let todoList = ["밥먹기,X"]; // 1달에는 JS에서 메모리 관리 했지만 // 3달 에는 웹서버( ->DB서버) 관리 하기 때문에 필요없다.
 
+// 1. 할일 등록 함수 
 function todocreate(){ console.log( 'todocreate() load');
     // [1] HTML 입력받은 값 가져오기 
         // [1-1] DOM 가져오기 
@@ -17,6 +18,7 @@ function todocreate(){ console.log( 'todocreate() load');
             if( result == true ){
                  alert('할일등록성공');     // 성공 안내 
                  todoInput.value = '';      // 입력상자에 입력된 값 없애기.
+                 todoreadall();             // 등록 성공시 할일 목록 전체 출력 함수 호출 
             }
             else{ alert('할일등록실패'); } // 실패 안내
         } // success end 
@@ -26,35 +28,40 @@ function todocreate(){ console.log( 'todocreate() load');
     $.ajax( ajaxoption ); // AJAX (웹서버 와 통신 하기 ) 실행 
 
 } // todocreate end 
-
-function print(){
-    let todoBox = document.querySelector(`#todoBox`);
-    let html = ``;
-
-    for(let i=0; i<todoList.length; i++){
-        let s = todoList[i].split(",")[0];    // 문장     // split 함수로 떼어내기
-        let e = todoList[i].split(",")[1];    // X  
-
-        if(e == 'X'){                          // e == 'X'는 기본값으로 등록했을 때 화이트 박스가 나오게 하기 위함.
-            html +=`<div id="whiteBox">
-                        <span> ${s} </span>
-                        <div>
-                            <button type="button" onclick="change(${i})">변경</button>
-                            <button type="button" onclick="remove(${i})">삭제</button>
-                        </div>
-                    </div>`            
-        }else{
-            html +=`<div id="blackBox">
-                        <span> ${s} </span>
-                        <div>
-                            <button type="button" onclick="change(${i})">변경</button>
-                            <button type="button" onclick="remove(${i})">삭제</button>
-                        </div>
-                    </div>`
+// 2. 할일 목록 전체 출력 , 실행조건 : 1.JS열렸을때 2.등록/삭제/수정 (상태변경시) 성공시
+todoreadall(); // 1.JS열렸을때
+function todoreadall(){
+    // - 출력할 데이터 가져오기 
+    $.ajax( { 
+        method : 'get' , 
+        url : '/todo/readall' ,
+        success : function response( result ){   console.log( result ); // 결과받은 데이터의 타입은 Array/list
+            // [1]어디에
+            let todoBox = document.querySelector(`#todoBox`);   console.log( todoBox );
+             // [2] 무엇을 
+            let html = ``;
+            // [1] for( let i = 0 ; i < 리스트명.length ; i++ ){ 실행문 }
+            // [2] 리스트명.forEach( 반복변수명 => { 실행문 })
+            result.forEach( todoDto => {
+                html += `<div id="whiteBox">
+                            <span> ${ todoDto.tcontent } </span>
+                            <div>
+                                <button type="button" onclick="change(${ todoDto.tno })">변경</button>
+                                <button type="button" onclick="remove(${ todoDto.tno })">삭제</button>
+                            </div>
+                        </div>`
+                console.log( html );    
+            } ); 
+            // [3] 출력
+            todoBox.innerHTML = html;    
         }
-    }    
-    todoBox.innerHTML = html;    
-}
+    } ); // ajax end 
+
+} // todoreadall end 
+
+
+
+
 function remove(deleteIndex){
     //  1. 배열 내 특정 인덱스[i]의 요소 삭제
     todoList.splice(deleteIndex, 1);
