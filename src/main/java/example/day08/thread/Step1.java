@@ -22,7 +22,7 @@ public class Step1 {
         }
         // [2]. '띵; 5회 console 출력
         for( int i = 1 ; i<=5 ; i++ ){
-            System.out.println("띵");
+            System.out.println(i + "띵");
             try {Thread.sleep( 1000 );}
             catch ( Exception e ){  System.out.println(e); }
         }
@@ -34,10 +34,72 @@ public class Step1 {
         threadA.start();
         // [2]. '띵; 5회 console 출력
         for( int i = 1 ; i<=5 ; i++ ){
-            System.out.println("띵");
+            System.out.println(i + "띵");
             try {Thread.sleep( 1000 );}
+            catch ( Exception e ){  System.out.println(e); }
+        } // for end
+        // ===================== 멀티 스레드 2 =============== //
+        // 1. 작업스레드B의 구현(객)체 생성
+        Runnable runnable1 = new 작업스레드B();
+        // 2. Thread 객체
+        Thread threadB = new Thread( runnable1 );
+        // 3. Thread 실행
+        threadB.start();
+        // [2]. '띵; 5회 console 출력
+        for( int i = 1 ; i<=5 ; i++ ){
+            System.out.println(i + "띵"); try {Thread.sleep( 1000 );}
+            catch ( Exception e ){  System.out.println(e); }
+        } // for end
+
+        // ===================== 멀티 스레드 3-1 =============== //
+        // 익명 객체/구현체 : 이름 없는 객체
+            // new 생성자(){ 익명구현체 정의 }
+        // 1. (익명) 구현객체 생성
+        Thread threadC = new Thread(){
+            @Override public void run() {
+                Toolkit toolkit = Toolkit.getDefaultToolkit();
+                for( int i = 1 ; i<=5 ; i++ ) {
+                    toolkit.beep(); try {Thread.sleep(1000);}
+                    catch (Exception e ){ System.out.println("e = " + e);  }
+                } // for end
+            } // run end
+        }; // 익명구현체 정의 end
+        // 2. Thread 실행
+        threadC.start();
+        // [2]. '띵; 5회 console 출력
+        for( int i = 1 ; i<=5 ; i++ ){
+            System.out.println(i + "띵"); try {Thread.sleep( 1000 );}
+            catch ( Exception e ){  System.out.println(e); }
+        } // for end
+        // ===================== 멀티 스레드 3-2 =============== //
+        // 1. 익명 구현체
+        Thread threadD = new Thread( new Runnable() {
+            @Override  public void run() {
+                Toolkit toolkit = Toolkit.getDefaultToolkit();
+                for( int i = 1 ; i<=5 ; i++ ) {
+                    toolkit.beep(); try {Thread.sleep(1000);}
+                    catch (Exception e ){ System.out.println("e = " + e);  }
+                } // for end
+            }
+        });
+        // 2. 스레드 실행
+        threadD.start();
+        // [2]. '띵; 5회 console 출력
+        for( int i = 1 ; i<=5 ; i++ ){
+            System.out.println(i + "띵"); try {Thread.sleep( 1000 );}
             catch ( Exception e ){  System.out.println(e); }
         } // for end
 
     } // main method end
 } // class end
+
+
+
+
+
+
+
+
+
+
+
