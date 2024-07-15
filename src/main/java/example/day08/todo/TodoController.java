@@ -30,7 +30,7 @@ public class TodoController {
     // [UPDATE]
     @PutMapping("/todo/update")
     // [PUT] http://localhost:8080/todo/update?tno=3
-    public boolean todoUpdate( int tno ){
+    public boolean todoUpdate(  int tno ){
         boolean result = TodoDao.getInstance().todoUpdate( tno );
         return result;
     }

@@ -27,10 +27,16 @@ HTTP 데이터 받는 방법
         - url(주소)뒤에 ?부터 key(변수명) value(변수의값) & 변수구분
     [1] HttpServletRequest
         .getParameter("쿼리스트링매개변수key")
+
     [2] @RequestParam
+        1. 쿼리스트링 의 매개변수명 과 메소드의 매개변수명이 동일하면 생략
+            URL?key=10      -->   method( int key )
+        2. 쿼리스트링 의 매개변수명 과 메소드의 매개변수명이 동일하지 않으면 쿼리스트링의 매핑할 매개변수 정의
+            URL?key=10      -->   method( @RequestParam("key") int math )
 
     * HTTP BODY 본문 ( JSON )
     [1] @RequestBody
+        1. 쿼리스트링 아닌 HTTP 의 본문(BODY) 값을 받을때
 
 HTTP 데이터 ()응답 하는 방법
     [1] HttpServletResponse
@@ -39,6 +45,7 @@ HTTP 데이터 ()응답 하는 방법
         return 데이터자료;    *메소드의 리턴타입 일치
         (2-1) 메소드 위에 @ResponseBody  : 해당 메소드의 반환 (자바)타입을 (HTTP) 타입으로 변환
         (2-2) 클래스 위에 @RestController : 해당하는 클래스내 모든 메소드는 @ResponseBody 생략해도 기능이 적용된다.
+
 자바의 기본타입(int,float,boolean등등) 처럼 HTTP의 타입 존재
     HTTP Content-Type
         - HTTP의 타입중 application/json 존재
