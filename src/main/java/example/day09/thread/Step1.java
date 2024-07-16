@@ -9,10 +9,11 @@ public class Step1 {
         System.out.println("해당코드를 읽어드리는 스레드명 : " + thread.getName() ); // main
 
         // 2. 여러개의 스레드를 만들어서 스레드 이름 확인
-        for( int i = 1 ; i<=5 ; i++ ){
+        for( int i = 1 ; i<=5 ; i++ ){ //  지역변수 i 는 main스레드의 지역변수
             Thread threadA = new Thread(){
                 @Override
-                public void run() {
+                public void run() { // mian 스레드 아닌 해당 각 스레드의 스택영역
+                    // System.out.println( i ); // mian스레드의; i지역변수 호출 불가능
                     Thread thread = Thread.currentThread();
                     //thread.setName("내가만든 작업스레드"); // 스레드 이름 정의하기.
                     System.out.println("해당코드를 읽어드리는 스레드명 : " + thread.getName() );
