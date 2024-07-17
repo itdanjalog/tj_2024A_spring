@@ -36,7 +36,7 @@ public class MyList < T > {
         int j = 0; // j:새로운 배열의 인덱스
         // i : 기존 배열의 인덱스
         for( int i = 0 ; i<this.array.length ; i++ ){
-            // - 삭제할 인덱스는 제외하고 복사
+            // - 삭제할 인덱스는 제외 하고 복사
             if( i == index ) { continue; } // 반복문(증감식) 으로 이동
             newArray[j] = this.array[i];
             j++; // 새로운 배열의 인덱스 증가.
