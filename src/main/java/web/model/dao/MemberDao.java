@@ -25,8 +25,8 @@ public class MemberDao extends Dao {
         }catch (Exception e ){  System.out.println("e = " + e);     }
         return false;
     }
-    // 2. 로그인
-    public boolean mLogin( MemberDto memberDto ){
+    // 2. 로그인 : 로그인 성공한 회원번호 반환( 세션에 저장할려고 )
+    public int mLogin( MemberDto memberDto ){
         System.out.println("MemberDao.mLogin");
         System.out.println("memberDto = " + memberDto);
         try{String sql = "select * from member where id = ? and pw =?";
@@ -34,8 +34,14 @@ public class MemberDao extends Dao {
             ps.setString( 1 , memberDto.getId() );
             ps.setString( 2 , memberDto.getPw() );
             ResultSet rs = ps.executeQuery();
-            if( rs.next() ){ return true; }
+            if( rs.next() ){ return rs.getInt("no"); }
         }catch (Exception e ){ System.out.println(e);   }
-        return false;
+        return 0; // 0 은 회원번호가 없다 뜻
     }
 }
+
+
+
+
+
+

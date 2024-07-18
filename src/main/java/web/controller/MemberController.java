@@ -31,15 +31,17 @@ public class MemberController {
         System.out.println("memberDto = " + memberDto);
         return memberService.mLogin( memberDto );
     }
+
     // 로그인 체크
     @GetMapping("/login/check")
-    public String mLoginCheck( ){
+    public MemberDto mLoginCheck( ){
         return memberService.mLoginCheck();
     }
+
     // 로그아웃
     @GetMapping("/logout")
-    public boolean mLogout(){
-        return memberService.mLogout();
+    public void mLogout(){
+        memberService.mLogout();
     }
 }
 
