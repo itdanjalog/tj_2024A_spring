@@ -1,4 +1,5 @@
 package web.service;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +21,19 @@ public class MemberService {
     public boolean mLogin( MemberDto memberDto ){
         System.out.println("MemberService.mLogin");
         System.out.println("memberDto = " + memberDto);
-        return memberDao.mLogin( memberDto );
+        int no =  memberDao.mLogin( memberDto );
+        if( no == 0 ){ return false; }
+        MemberDto loginDto = MemberDto.builder()
+                .id( memberDto.getId() ).no( no )
+                .build();
+        request.getSession().setAttribute( "loginDto" , loginDto );
+        return true;
+    }
+
+    @Autowired
+    HttpServletRequest request;
+    public MemberDto mLoginCheck(){
+        return (MemberDto) request.getSession().getAttribute( "loginDto");
     }
 
 }

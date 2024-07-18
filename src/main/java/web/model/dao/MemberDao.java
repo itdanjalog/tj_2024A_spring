@@ -26,7 +26,7 @@ public class MemberDao extends Dao {
         return false;
     }
     // 2. 로그인
-    public boolean mLogin( MemberDto memberDto ){
+    public int mLogin( MemberDto memberDto ){
         System.out.println("MemberDao.mLogin");
         System.out.println("memberDto = " + memberDto);
         try{String sql = "select * from member where id = ? and pw =?";
@@ -34,8 +34,8 @@ public class MemberDao extends Dao {
             ps.setString( 1 , memberDto.getId() );
             ps.setString( 2 , memberDto.getPw() );
             ResultSet rs = ps.executeQuery();
-            if( rs.next() ){ return true; }
+            if( rs.next() ){ return rs.getInt(1); }
         }catch (Exception e ){ System.out.println(e);   }
-        return false;
+        return 0;
     }
 }
