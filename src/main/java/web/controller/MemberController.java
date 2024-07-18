@@ -36,5 +36,20 @@ public class MemberController {
     public String mLoginCheck( ){
         return memberService.mLoginCheck();
     }
-
+    // 로그아웃
+    @GetMapping("/logout")
+    public boolean mLogout(){
+        return memberService.mLogout();
+    }
 }
+
+
+
+
+
+
+
+
+
+
+

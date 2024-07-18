@@ -37,9 +37,19 @@ public class MemberService {
     }
     // 3. 로그인의 상태 반환
     public String mLoginCheck( ){
+        // 1. 현재 요청을 보내온 클라이언트의 세션객체호출
         HttpSession session = request.getSession();
+        // 2. 세션객체내 속성 값 호출 , 타입변환 필요하다.
         String str = (String)session.getAttribute( "loginDto" );
         return str;
+    }
+    // 4. 로그아웃 : 세션 초기화
+    public boolean mLogout( ){
+        // 1. 현재 요청을 보내온 클라이언트의 세션객체호출
+        HttpSession session = request.getSession();
+        // 2. 세션객체내 모든 속성 값 초기화
+        session.invalidate();
+        return true;
     }
 
 } // class end
