@@ -60,7 +60,7 @@ public class Step1 {
         // 9-4 .stream().map().collect()  ,
         // 요소의 개수를 하나씩 반환해서 반복후 결과(return) 해서 반환 , return 있다.
             // 반복하면서 return 값들을 하나의 배열/컬렉션으로 반환 받을수 있다.
-            // 주로 카피/복사 할때 사용된다.
+            // 주로 카피/복사 할때 사용된다. 반복하면서 실행결과를 반환 받을수 있다.
         List<String> newList = list.stream()
                                 .map( s -> { System.out.println(s); return s; } )
                                 .collect(Collectors.toList() );
@@ -68,6 +68,38 @@ public class Step1 {
         newList.remove(0);
         System.out.println( list );
         System.out.println( newList );
+        
+        // ======
+        List<String> vector = new Vector<>();
+        vector.add("유재석");
+        System.out.println("vector = " + vector);
+
+        // ======
+        List<String> list1 = new ArrayList<>();
+        List<String> list2 = new LinkedList<>();
+
+        long startTime;
+        long endTime;
+        long result;
+
+        startTime = System.nanoTime();
+        for( int i = 0 ; i<10000 ; i++ ){
+            list1.add( 0 ,  String.valueOf( i ) );
+        }
+        endTime = System.nanoTime();
+        result = endTime - startTime;
+        System.out.println("1만개 저장하는 ArrayList 걸린시간 :" + result );
+
+        startTime = System.nanoTime();
+        for( int i = 0 ; i<10000 ; i++ ){
+            list2.add( 0 ,  String.valueOf( i ) );
+        }
+        endTime = System.nanoTime();
+        result = endTime - startTime;
+        System.out.println("1만개 저장하는 LinkedList 걸린시간:" + result );
+
+
+
         
 
     }
