@@ -1,6 +1,7 @@
 package web.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
 import web.model.dao.MemberDao;
 import web.model.dto.MemberDto;
 
@@ -14,4 +15,12 @@ public class MemberService {
         System.out.println("memberDto = " + memberDto);
         return memberDao.mSignup( memberDto );
     }
+
+    // 2. 로그인
+    public boolean mLogin( MemberDto memberDto ){
+        System.out.println("MemberService.mLogin");
+        System.out.println("memberDto = " + memberDto);
+        return memberDao.mLogin( memberDto );
+    }
+
 }

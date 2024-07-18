@@ -12,3 +12,7 @@ create table member(
 	phone varchar(13) not null unique,         -- 회원 핸드폰 번호
 	constraint member_no_pk primary key(no )       -- 회원 번호 pk
 );
+
+
+# [2] 로그인 
+select * from member where id = 'qwe' and pw ='qwe';

@@ -23,4 +23,12 @@ public class MemberController {
         return memberService.mSignup( memberDto );
     }
 
+    // http://localhost:8080/member/login?id=qwe&pw=asd
+    @PostMapping("/login")
+    public boolean mLogin( MemberDto memberDto ){
+        System.out.println("MemberController.mLogin");
+        System.out.println("memberDto = " + memberDto);
+        return memberService.mLogin( memberDto );
+    }
+
 }
