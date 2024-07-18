@@ -23,4 +23,8 @@ public class ViewController {
     public String mLogin(){
         return "/member/login.html";
     }
+    @GetMapping("/member/mypage")
+    public String mMyPage(){
+        return "/member/myinfo.html";
+    }
 }

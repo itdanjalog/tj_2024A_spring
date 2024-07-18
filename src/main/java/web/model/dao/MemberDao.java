@@ -38,6 +38,23 @@ public class MemberDao extends Dao {
         }catch (Exception e ){ System.out.println(e);   }
         return 0; // 0 은 회원번호가 없다 뜻
     }
+    // 5. 마이페이지 정보
+    public MemberDto mMyInfo( int loginMno ){
+        try{ String sql ="select * from member where no = ? ";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt( 1 , loginMno );
+            ResultSet rs = ps.executeQuery();
+            if( rs.next() ){
+                return MemberDto.builder()
+                        .no( rs.getInt("no") )
+                        .id( rs.getString("id"))
+                        .phone( rs.getString("phone"))
+                        .email( rs.getString("email"))
+                        .name( rs.getString("name"))
+                        .build();
+            }
+        }catch (Exception e ){  System.out.println(e);  } return null;
+    }
 }
 
 

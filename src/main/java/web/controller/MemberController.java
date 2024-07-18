@@ -43,6 +43,11 @@ public class MemberController {
     public void mLogout(){
         memberService.mLogout();
     }
+
+    // 마이페이지 정보
+    @GetMapping("/my/info")
+    public MemberDto mMyInfo( ){ return memberService.mMyInfo(); }
+
 }
 
 
