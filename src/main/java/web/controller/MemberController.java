@@ -2,6 +2,7 @@ package web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,6 +30,11 @@ public class MemberController {
         System.out.println("MemberController.mLogin");
         System.out.println("memberDto = " + memberDto);
         return memberService.mLogin( memberDto );
+    }
+    // 로그인 체크
+    @GetMapping("/login/check")
+    public String mLoginCheck( ){
+        return memberService.mLoginCheck();
     }
 
 }
