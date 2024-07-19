@@ -68,6 +68,22 @@
                         return false;
                     }
 
+    [2] Map 인터페이스
+        - 공통점 : 저장된 순서(인덱스) 없고
+        - key-value 이루어진 한쌍(엔트리)
+        - key : 중복불가능 , value : 중복가능
+        - 1. HashMap 클래스
+
+        - 자주 사용되는 메소드
+            1. .put( key , value )  : map 객체내 key 와 value 엔트리 추가
+            2. .size()  : map 객체내 엔트리 개수
+            3. .get( key ) : map 객체내 key 해당 하는 value 반환
+            4. .remove( key ) : map 객체내 key 해당 하는 엔트리 삭제
+            5. .clear() : map 객체내 전체 엔트리 삭제
+            6. .isEmpty() : map 객체내 엔트리 가 하나도 없으면 true 요소가 존재하면 false
+            7. .keySet() : map 객체내 모든 key 반환
+            8. .values() : map 객체내 모든 value 반환
+            9. .entrySet() : map 객체내 모든 entry 반환
 
 
 
