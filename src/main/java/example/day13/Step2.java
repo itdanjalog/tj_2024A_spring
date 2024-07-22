@@ -30,7 +30,36 @@ public class Step2 {
         System.out.println(" 48보다 이상  = " + scores.tailSet( 48 , true ) ); // true : 이상 , false : 초과
         System.out.println(" 48보다 이하   = " + scores.headSet( 48 , true ) );
         System.out.println(" 10이상 이면서 48미만  = " + scores.subSet( 10 , true , 48 , false ) );
-        
+
+
+        // 6. TreeMap 
+        TreeMap<Integer , String > treeMap = new TreeMap<>();
+        // 7. 
+        treeMap.put( 23 , "apple" );  treeMap.put( 10 , "forever" );
+        treeMap.put( 48 , "ever" );  treeMap.put( 15 , "base" );
+        treeMap.put( 7 , "cherry" );    treeMap.put( 22 , "guess" );
+        treeMap.put( 56 , "zoo" );
+        System.out.println("treeMap = " + treeMap);
+        // 8. 
+        treeMap.entrySet().forEach( entry -> {
+            System.out.println("entry = " + entry);
+        });
+        // 9.
+        System.out.println("treeMap.firstEntry()  = " + treeMap.firstEntry() );
+        System.out.println("treeMap.lastEntry()  = " + treeMap.lastEntry() );
+        System.out.println("treeMap.lowerEntry(48)  = " + treeMap.lowerEntry(48) );
+        System.out.println("treeMap.higherEntry(48)  = " + treeMap.higherEntry(48) );
+        System.out.println("treeMap.floorEntry(48) = " + treeMap.floorEntry(48));
+        System.out.println("treeMap.ceilingEntry(48) = " + treeMap.ceilingEntry(48));
+        System.out.println("treeMap.descendingMap()  = " + treeMap.descendingMap() );
+        System.out.println("treeMap.tailMap( 48 , true ) = " + treeMap.tailMap( 48 , true ) );
+        System.out.println("treeMap.headMap( 48 , true )  = " + treeMap.headMap( 48 , true) );
+        System.out.println("treeMap.subMap( 10 , true , 48 , false ) = " + treeMap.subMap( 10 , true , 48 , false ));
+
+
+
+
+
 
 
 
@@ -40,3 +69,10 @@ public class Step2 {
 
     }
 }
+
+
+
+
+
+
+
