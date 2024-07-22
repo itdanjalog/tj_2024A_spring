@@ -57,6 +57,31 @@ function pwCheck(){ console.log("pwCheck()");
     pwCheckBox.innerHTML =`영대소문자 와 숫자 조합의 5~30 글자 사이 가능합니다.`
 } // method end
 
+// 4. 이름 유효성검사
+function nameCheck(){
+    let name = document.querySelector('#name').value;
+    let nameCheckBox = document.querySelector('.nameCheckBox')
+    let nameReg = /^[가-힣]{2,20}$/
+    if( nameReg.test( name ) ){
+        nameCheckBox.innerHTML ='사용가능한 이름입니다.';
+    }else{
+        nameCheckBox.innerHTML ='한글 2~20글자 사이 입력해주세요.';
+    }
+}
+// 5. 전화번호 유효성검사.
+function phoneCheck(){
+    let phone = document.querySelector('#phone').value;
+    let phoneCheckBox = document.querySelector('.phoneCheckBox')
+    // 2. 정규표현식 : 000-0000-0000 또는 00-000-0000
+    let phoneReg = /^([0-9]{2,3})+[-]+([0-9]{3,4})+[-]([0-9]{4})$/
+    if( phoneReg.test(phone) ){
+        // 중복검사 생략
+        phoneCheckBox.innerHTML = '사용가능한 전화번호입니다.'
+    }else{
+        phoneCheckBox.innerHTML = '000-0000-0000 또는 00-000-0000 형식으로 입력해주세요.'
+    }
+}
+
 
 // 1. 회원가입
 function doSignup(){ console.log( 'doSignup()' )

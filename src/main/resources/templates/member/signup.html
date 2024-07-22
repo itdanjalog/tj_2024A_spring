@@ -12,13 +12,21 @@
         아이디 : <input  onkeyup="idCheck()"  id="id"/>
         <div class="idCheckBox"></div>
 
-        비밀번호 : <input  onkeyup="pwCheck()"  id="pw" type="text" /> <br/>
-        비밀번호 확인 : <input  onkeyup="pwCheck()"  id="pwConfirm" type="text" />
+        비밀번호 : <input  onkeyup="pwCheck()"  id="pw" type="password" /> <br/>
+        비밀번호 확인 : <input  onkeyup="pwCheck()"  id="pwConfirm" type="password" />
         <div class="pwCheckBox"> </div>
 
-        이름 : <input id="name"/> <br/>
+        이름 : <input onkeyup="nameCheck()" id="name"/>
+        <div class="nameCheckBox"></div>
+
+        연락처 : <input onkeyup="phoneCheck()" id="phone"/> <br/>
+        <div class="phoneCheckBox"></div>
+
         이메일 : <input id = "email"/> <br/>
-        연락처 : <input id="phone"/> <br/>
+
+
+
+
         <button type="button" onclick="doSignup()">회원가입</button>
     </form>
 
