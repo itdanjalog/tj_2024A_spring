@@ -1,5 +1,28 @@
 console.log( 'signup.js' )
 
+/*
+    onclick="함수()" : 마우스로 클릭 했을때 작동하는 이벤트
+    onkeyup="함수()" : 키보드에서 키를 누르고 떼었을때 작동하는 이벤트
+*/
+
+// 2. 아이디 유효성검사
+function idcheck(){ console.log('idcheck()')
+    // 1. 입력된 값 가져오기
+    let id = document.querySelector('#id').value;   console.log( id );
+    let idCheckBox = document.querySelector('.idCheckBox');
+    // 2. 정규표현식 : 영대소문자와 숫자 조합의 5~30글자 까지 허용
+    let idReg =  /^[a-zA-Z0-9]{5,30}$/
+    // 3. 정규표현식 검사.
+    console.log( idReg.test( id ) )
+    if( idReg.test(id) ){
+        // 아이디 중복검사 REST API 통신
+        idCheckBox.innerHTML = `사용가능한 아이디 입니다.`
+    }else{
+        idCheckBox.innerHTML = `영대소문자 와 숫자 조합의 5~30 글자 사이 가능합니다.`
+    }
+} // method end
+
+
 // 1. 회원가입
 function doSignup(){ console.log( 'doSignup()' )
     // 1. 입력값 가져오기

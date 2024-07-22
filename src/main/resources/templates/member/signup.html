@@ -9,7 +9,9 @@
 
     회원가입 페이지
     <form>
-        아이디 : <input id="id" /> <br/>
+        아이디 : <input id="id" onkeyup="idcheck()" />
+        <div class="idCheckBox"></div>
+
         비밀번호 : <input id="pw" /> <br/>
         이름 : <input id="name"/> <br/>
         이메일 : <input id = "email"/> <br/>
