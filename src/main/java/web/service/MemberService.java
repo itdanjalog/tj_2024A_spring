@@ -3,6 +3,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import web.model.dao.MemberDao;
 import web.model.dto.MemberDto;
@@ -66,6 +67,10 @@ public class MemberService {
         int loginMno = loginDto.getNo();
         // 2.
         return memberDao.mMyInfo( loginMno );
+    }
+    // 6. 아이디 중복검사
+    public boolean mIdCheck( String id ){
+        return memberDao.mIdCheck( id );
     }
 
 } // class end

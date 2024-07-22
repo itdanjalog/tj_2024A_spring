@@ -16,12 +16,23 @@ function idcheck(){ console.log('idcheck()')
     console.log( idReg.test( id ) )
     if( idReg.test(id) ){
         // 아이디 중복검사 REST API 통신
-        idCheckBox.innerHTML = `사용가능한 아이디 입니다.`
+        $.ajax({
+            async : false,              // 비동기true vs 동기false
+            method : "get",             // HTTP method
+            url : "/member/idcheck",    // HTTP url
+            data : { id : id } ,        // HTTP 전송할 DATA
+            success : (result)=>{       // HTTP 응답받을 DATA
+                if( result ){
+                    idCheckBox.innerHTML = `사용중인 아이디`
+                }else{
+                    idCheckBox.innerHTML = `사용가능한 아이디 입니다.`
+                }
+            } // success method end
+        }) // ajax end
     }else{
         idCheckBox.innerHTML = `영대소문자 와 숫자 조합의 5~30 글자 사이 가능합니다.`
     }
 } // method end
-
 
 // 1. 회원가입
 function doSignup(){ console.log( 'doSignup()' )
