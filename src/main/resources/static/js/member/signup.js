@@ -56,7 +56,6 @@ function pwCheck(){ console.log("pwCheck()");
     }
     pwCheckBox.innerHTML =`영대소문자 와 숫자 조합의 5~30 글자 사이 가능합니다.`
 } // method end
-
 // 4. 이름 유효성검사
 function nameCheck(){
     let name = document.querySelector('#name').value;
@@ -79,6 +78,24 @@ function phoneCheck(){
         phoneCheckBox.innerHTML = '사용가능한 전화번호입니다.'
     }else{
         phoneCheckBox.innerHTML = '000-0000-0000 또는 00-000-0000 형식으로 입력해주세요.'
+    }
+}
+// 6. 이메일 유효성검사
+function emailCheck(){
+    let email = document.querySelector('#email').value;
+    let emailCheckBox = document.querySelector('.emailCheckBox')
+    // 2. 정규표현식
+        // kgs2072@ : [a-zA-Z0-9_-]+@  : @ 앞에 패턴 1개이상 존재한다.
+        // naver : [a-zA-Z0-9_-]
+        // .com : \.[a-zA-Z]+
+            // . 정규표현식에 사용되는 패턴 vs \. 문자 (점)
+    let emailReg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+\.[a-zA-Z]+$/
+    if( emailReg.test(email) ){
+        // 이메일 중복검사 생략
+        // 이메일 인증검사
+        emailCheckBox.innerHTML ='사용가능한 이메일입니다.';
+    }else{
+        emailCheckBox.innerHTML ='id@도메인주소 형식으로 입력해주세요.';
     }
 }
 
