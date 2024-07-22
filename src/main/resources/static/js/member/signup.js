@@ -6,7 +6,7 @@ console.log( 'signup.js' )
 */
 
 // 2. 아이디 유효성검사
-function idcheck(){ console.log('idcheck()')
+function idCheck(){ console.log('idcheck()')
     // 1. 입력된 값 가져오기
     let id = document.querySelector('#id').value;   console.log( id );
     let idCheckBox = document.querySelector('.idCheckBox');
@@ -33,6 +33,30 @@ function idcheck(){ console.log('idcheck()')
         idCheckBox.innerHTML = `영대소문자 와 숫자 조합의 5~30 글자 사이 가능합니다.`
     }
 } // method end
+
+// 3. 패스워드 유효성검사
+function pwCheck(){ console.log("pwCheck()");
+    // 1.
+    let pw = document.querySelector('#pw').value;
+    let pwConfirm = document.querySelector('#pwConfirm').value;
+    let pwCheckBox = document.querySelector('.pwCheckBox');
+    // 2. 정규표현식
+    let pwReg = /^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9]{5,30}$/
+    // 3. 정규표현식 검사
+    if( pwReg.test(pw) ){ // 비밀번호 정규표현식 검사
+        if( pwReg.test(pwConfirm) ){ // 비밀번호 확인 , 정규표현식 검사
+            if( pw == pwConfirm ){ // 두 비밀번호 일치 여부
+                pwCheckBox.innerHTML = '통과';
+                return;
+            }else{
+                pwCheckBox.innerHTML = '두 비밀번호가 일치하지 않습니다.'
+                return;
+            }
+        }
+    }
+    pwCheckBox.innerHTML =`영대소문자 와 숫자 조합의 5~30 글자 사이 가능합니다.`
+} // method end
+
 
 // 1. 회원가입
 function doSignup(){ console.log( 'doSignup()' )

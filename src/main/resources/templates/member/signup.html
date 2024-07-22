@@ -9,10 +9,13 @@
 
     회원가입 페이지
     <form>
-        아이디 : <input id="id" onkeyup="idcheck()" />
+        아이디 : <input  onkeyup="idCheck()"  id="id"/>
         <div class="idCheckBox"></div>
 
-        비밀번호 : <input id="pw" /> <br/>
+        비밀번호 : <input  onkeyup="pwCheck()"  id="pw" type="text" /> <br/>
+        비밀번호 확인 : <input  onkeyup="pwCheck()"  id="pwConfirm" type="text" />
+        <div class="pwCheckBox"> </div>
+
         이름 : <input id="name"/> <br/>
         이메일 : <input id = "email"/> <br/>
         연락처 : <input id="phone"/> <br/>
