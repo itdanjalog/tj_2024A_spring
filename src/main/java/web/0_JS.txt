@@ -19,4 +19,7 @@ JS 에서는 함수도 자료 타입의 종류 중 하나
         setInterval( function(){} , 밀리초 )
     - 3.
         setInterval( ( ) => { } , 밀리초 )
+    - clearInterval( 인터벌변수 );
+        - 인터벌 종료 함수
+        - let 변수명 = setInterval( 함수정의 , 밀리초 )
 
