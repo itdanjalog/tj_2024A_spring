@@ -34,7 +34,7 @@ public class AuthService {
             // 2. 서버 세션 객체 의 생명주기(세션이 유지되는 시간 ) // 초 기준 // 10 초 동안 세션 유지하고 10초 후 삭제
             request.getSession().setMaxInactiveInterval(10);
             // 3. 이메일 전송 --
-            emailSend( email, " OOO 홈페이지의 회원가입 인증코드 ", " 인증코드 : " + authCode);
+            //emailSend( email, " OOO 홈페이지의 회원가입 인증코드 ", " 인증코드 : " + authCode);
             return true;
         }catch (Exception e ){ System.out.println("e = " + e); }
         return false;
