@@ -106,13 +106,14 @@ let authBtn = document.querySelector('.authBtn') // * 이메일 인증 버튼
 let authBox = document.querySelector('.authBox') // * 인증 구역
 let timerInterval = null;                       // * 타이머 인터벌 객체를 저장하는 변수
 
-// 7. 인증함수
+// 7. 인증 요청 함수
 function doAuth(){ console.log('doAuth()')
     // ---*  AJAX 인증 번호 요청 통신
     $.ajax({
         async : false , // 동기식
         method : "get" ,
         url : "/auth/code",
+        data : { email : document.querySelector('#email').value } ,
         success : ( result ) => {
             if( result ){ alert('메일로 인증코드 전송 했습니다.'); }
         }
