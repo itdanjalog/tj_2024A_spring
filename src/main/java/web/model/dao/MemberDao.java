@@ -66,6 +66,17 @@ public class MemberDao extends Dao {
         }catch (Exception e ){ System.out.println(e); }
         return false; // 중복이 아니다.
     }
+    // [7]. 회원 탈퇴
+    public boolean mLeave( int loginNo , String pwConfirm ){
+        try{String sql ="delete from member where no = ? and pw = ? ";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt( 1 , loginNo );
+            ps.setString( 2, pwConfirm );
+            int count = ps.executeUpdate();
+            if( count == 1 ) return true;
+        }catch (Exception e ){ System.out.println("e = " + e);}
+        return false;
+    }
 }
 
 
