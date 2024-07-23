@@ -16,6 +16,8 @@
     @PostMapping( "URL" )
         - 메소드 위에 사용 , 메소드와 매핑할 HTTP의 URL 정의하고 HTTP POST METHOD 방식 사용.
 
+    @Service
+        - 스프링MVC 에서 비지니스 로직( 실질적인 코드 / 주요 코드 ) 을 담당하는 역할
 
 
 
