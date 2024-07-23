@@ -108,8 +108,17 @@ let timerInterval = null;                       // * 타이머 인터벌 객체�
 
 // 7. 인증함수
 function doAuth(){ console.log('doAuth()')
-    // --- AJAX 인증 번호 요청 통신
-    authBtn.disabled = true;
+    // ---*  AJAX 인증 번호 요청 통신
+    $.ajax({
+        async : false , // 동기식
+        method : "get" ,
+        url : "/auth/code",
+        success : ( result ) => {
+            if( result ){ alert('메일로 인증코드 전송 했습니다.'); }
+        }
+    })
+
+    authBtn.disabled = true; // 인증요청 버튼 비활성화
     // 1. 인증 번호 입력 구역 구성
     let html = `<span class="timerBox"> 00:00 </span>
                 <input type="text" class="authCodeInput" />
@@ -117,7 +126,7 @@ function doAuth(){ console.log('doAuth()')
     // 2.
     authBox.innerHTML = html;
     // 3. 타이머
-    let timer = 5; // 타이머 시간 초
+    let timer = 10; // 타이머 시간 초
     // 4. 인터벌 ( JS 라이브러리 ) : 특정 주기에 따라 함수를 실행
         // setInterval( 함수정의 , 밀리초 )      // parseInt( ) : 정수 로 타입 변환 ( 소수점 자르기 )
     timerInterval = setInterval( ()=>{
@@ -145,14 +154,19 @@ function doAuthCode(){
     // 1. 입력한 입력번호 가져오기
     let authCodeInput = document.querySelector('.authCodeInput').value;
     // * 임의의 인증 번호 ( JS 에서 인증번호를 관리하지 않는 이유 : JS는 클라이언트 로부터 오픈코드 이기 떄문에 )
-    let authCode = 1234
-    // 2. 만약에 입력한 값이 인증번호와 동일하면 인증 성공
-    if( authCode == authCodeInput ){
-        authBox.innerHTML = '인증성공';
-        clearInterval( timerInterval ); // 인터벌 종료
-    }else{
-        alert('인증번호가 일치하지 않습니다.')
-    }
+    $.ajax({
+        async : false ,  method : "post" , url : "/auth/check",
+        data : { authCodeInput , authCodeInput } ,
+        success : (result)=>{
+            // 2. 만약에 입력한 값이 인증번호와 동일하면 인증 성공
+            if( result ){
+                authBox.innerHTML = '인증성공';
+                clearInterval( timerInterval ); // 인터벌 종료
+            }else{
+                alert('인증번호가 일치하지 않습니다.')
+            }
+        }
+    });
 }
 
 
