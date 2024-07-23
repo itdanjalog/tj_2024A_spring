@@ -82,6 +82,8 @@ function phoneCheck(){
 }
 // 6. 이메일 유효성검사
 function emailCheck(){
+    authBtn.disabled = true; // 인증요청 버튼 비활성화
+
     let email = document.querySelector('#email').value;
     let emailCheckBox = document.querySelector('.emailCheckBox')
     // 2. 정규표현식
@@ -91,13 +93,59 @@ function emailCheck(){
             // . 정규표현식에 사용되는 패턴 vs \. 문자 (점)
     let emailReg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+\.[a-zA-Z]+$/
     if( emailReg.test(email) ){
+        emailCheckBox.innerHTML ='사용가능한 이메일입니다.';
         // 이메일 중복검사 생략
         // 이메일 인증검사
-        emailCheckBox.innerHTML ='사용가능한 이메일입니다.';
+            authBtn.disabled = false; // 인증요청 버튼 활성화
     }else{
         emailCheckBox.innerHTML ='id@도메인주소 형식으로 입력해주세요.';
     }
 }
+
+let authBtn = document.querySelector('.authBtn') // * 이메일 인증 버튼
+let authBox = document.querySelector('.authBox') // * 인증 구역
+// 7. 인증함수
+function doAuth(){ console.log('doAuth()')
+    // 1. 인증 번호 입력 구역 구성
+    let html = `<span class="timerBox"> 00:00 </span>
+                <input type="text" class=""/>
+                <button type="button">인증</button>`
+    // 2.
+    authBox.innerHTML = html;
+    // 3. 타이머
+    let timer = 180; // 타이머 시간 초
+    // 4. 인터벌 ( JS 라이브러리 ) : 특정 주기에 따라 함수를 실행
+        // setInterval( 함수정의 , 밀리초 )
+        // parseInt( ) : 정수 로 타입 변환 ( 소수점 자르기 )
+    setInterval( ()=>{
+        // 1. 분 , 초 계산
+        let m = parseInt( timer / 60 ); // 분
+        let s = parseInt( timer % 60 ); // 초
+        // 2. 두자릿수 표현
+        m = m < 10 ? "0"+m : m; // 만약에 분 이 10보다 작으면 "0" 붙이기
+        s = s < 10 ? "0"+s : s;
+        // 3. 분 , 초 출력
+        document.querySelector('.timerBox').innerHTML = `${m}:${s}`
+        // 4. 1초 차감
+        timer--; console.log( timer )
+    },1000) // setInterval end
+} // doauth method end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // 1. 회원가입
