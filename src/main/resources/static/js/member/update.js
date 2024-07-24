@@ -20,6 +20,45 @@ function doMyInfo(){
         }
     })
 }
+// 2. 수정처리
 function doUpdate(){ console.log( 'doUpdate()' )
 
+    // 1. 보낼 데이터 수집.
+    let pw = document.querySelector('.pw').value;
+    let newPw = document.querySelector('.newPw').value;
+    let name = document.querySelector('.name').value;
+    let phone = document.querySelector('.phone').value;
+
+    let info = {  pw : pw ,   newPw : newPw ,
+        name : name ,  phone : phone
+    }
+    // 2.
+    $.ajax({
+        async : false ,
+        method : "put" ,
+        url : "/member/update",
+        data : JSON.stringify( info ) ,
+        contentType : "application/json" ,
+        success : r => { console.log(r); } ,
+        error : e =>{ console.log(e); }
+    })
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
