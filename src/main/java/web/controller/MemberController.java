@@ -64,7 +64,7 @@ public class MemberController {
     public boolean mUpdate(@RequestBody Map<String , String> map ){
             // {pw=144, newPw=324234, name=유재석, phone=010-4444-4444}
         System.out.println("map = " + map);
-        return true;
+        return memberService.mUpdate( map );
     }
 
 }

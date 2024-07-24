@@ -39,7 +39,14 @@ function doUpdate(){ console.log( 'doUpdate()' )
         url : "/member/update",
         data : JSON.stringify( info ) ,
         contentType : "application/json" ,
-        success : r => { console.log(r); } ,
+        success : r => { console.log(r);
+            if( r ){
+                alert('수정성공');
+                location.href="/member/mypage"; }
+            else{
+                alert('입력한 정보가 일치하지 않습니다. ');
+            }
+        } ,
         error : e =>{ console.log(e); }
     })
 
