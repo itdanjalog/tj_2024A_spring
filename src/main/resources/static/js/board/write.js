@@ -24,7 +24,8 @@ function bcFindAll(){
     })
 }
 
-// 2. 게시물 쓰기
+// 2. 게시물 쓰기 ( 첨부파일 전송하지 않는 일반 JSON 타입의 통신 )
+/*
 function doBoardWrite(){
     // 1. 입력받은 값 가져오기
         // - select 목록 에서 선택한 option의 value 호출
@@ -32,8 +33,8 @@ function doBoardWrite(){
     let btitle = document.querySelector('.btitle').value
     let bcontent = document.querySelector('.bcontent').value
     // 2. 객체화
-    let info = {
-        bcno : bcno , btitle : btitle , bcontent : bcontent
+    let info = {bcno : bcno , btitle : btitle ,
+        bcontent : bcontent
     }; console.log( info );
     // 3. AJAX 통신
     $.ajax({
@@ -42,16 +43,34 @@ function doBoardWrite(){
         data : JSON.stringify( info ) ,
         contentType : "application/json" ,
         success : (r)=>{ console.log(r);
-            if( r ){
+            if( r ){ // 4. 통신 결과에 실행문
                 alert('글쓰기성공');
                 location.href="/board";
             }else{ alert('글쓰기실패'); }
         } ,
         error : (e)=>{ console.log(e); }
     });
-    // 4. 통신 결과에 실행문
 }
+*/
+// 2-2. 게시물 쓰기 ( 첨부파일 전송 하는 대용량 form 타입의 통신 )
+function doBoardWrite() {
+    // 1. form 가져오기 , form 안에 있는 HTML 모두 한번에 가져오기 , HTML : <form class="boardWriteForm">
+    let boardWriteForm = document.querySelector('.boardWriteForm')
+    console.log( boardWriteForm );
+    // 2. form HTML 를 바이트 로 변환해주는 객체 = new FormData
+    let boardWriteFormData = new FormData( boardWriteForm );
+    console.log( boardWriteFormData )
+    // 3. AJAX 통신
+    $.ajax({
+        method: "post",
+        url : "/board/write",
+        data : boardWriteFormData ,
+        contentType : false , processData : false ,
+        success : r => { console.log(r); } ,
+        error : e =>{ console.log(e); }
+    })
 
+}
 
 
 

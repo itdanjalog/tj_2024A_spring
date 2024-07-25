@@ -22,7 +22,9 @@ public class BoardController {
     // 2. 글 쓰기 처리
     @PostMapping("/write")
     // { "bcno" : 1 ,  "btitle" : "안녕" ,  "bcontent" : "하하하" }
-    public boolean bWrite(@RequestBody BoardDto boardDto) {
+    public boolean bWrite( BoardDto boardDto) {
+        System.out.println("BoardController.bWrite");
+        System.out.println("boardDto = " + boardDto);
         return boardService.bWrite( boardDto );
     }
 }
