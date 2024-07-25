@@ -21,8 +21,12 @@ public class BoardService {
     }
 
     @Autowired MemberService memberService;
+    @Autowired FileService fileService;
     // 2.
     public boolean bWrite( BoardDto boardDto) {
+        // - 파일 업로드
+        fileService.fileUpload( boardDto.getBfile() );
+
         // 글자 작성을 요청한 회원의 로그인회원번호 구하기
         // 1. 로그인 세션에서 값 호출
         Object object = memberService.mLoginCheck();
