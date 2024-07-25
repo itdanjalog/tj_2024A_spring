@@ -1,9 +1,7 @@
 package web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import web.model.dto.BoardDto;
 import web.service.BoardService;
 
@@ -20,6 +18,12 @@ public class BoardController {
     public List< Map<String,String> > bcFindAll( ) {
         System.out.println("BoardController.bcFindAll");
         return boardService.bcFindAll();
+    }
+    // 2. 글 쓰기 처리
+    @PostMapping("/write")
+    // { "bcno" : 1 ,  "btitle" : "안녕" ,  "bcontent" : "하하하" }
+    public boolean bWrite(@RequestBody BoardDto boardDto) {
+        return boardService.bWrite( boardDto );
     }
 }
 

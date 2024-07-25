@@ -39,4 +39,40 @@ public class BoardDao extends Dao {
         }catch (Exception e ){ System.out.println(e); }
         return list; // 리스트 반환
     }
+    // 2.
+    public boolean bWrite( BoardDto boardDto) {
+        System.out.println("BoardDao.bWrite");
+        System.out.println("boardDto = " + boardDto);
+        try {
+            String sql ="insert into board( bcno , btitle , bcontent , no ) " +
+                    " values( ? , ? , ? , ? )";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setLong( 1, boardDto.getBcno() );
+            ps.setString( 2 , boardDto.getBtitle() );
+            ps.setString( 3 , boardDto.getBcontent() );
+            ps.setLong( 4 ,  boardDto.getNo() );
+            int count = ps.executeUpdate();
+            if( count == 1 )return true;
+        }catch (Exception e ){   System.out.println(e); }
+        return false;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
