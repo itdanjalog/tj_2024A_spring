@@ -66,10 +66,14 @@ function doBoardWrite() {
         url : "/board/write",
         data : boardWriteFormData ,
         contentType : false , processData : false ,
-        success : r => { console.log(r); } ,
-        error : e =>{ console.log(e); }
+        success : (r)=>{ console.log(r);
+            if( r ){ // 4. 통신 결과에 실행문
+                alert('글쓰기성공');
+                location.href="/board";
+            }else{ alert('글쓰기실패'); }
+        } ,
+        error : (e)=>{ console.log(e); }
     })
-
 }
 
 

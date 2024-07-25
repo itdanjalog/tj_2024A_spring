@@ -24,9 +24,6 @@ public class BoardService {
     @Autowired FileService fileService;
     // 2.
     public boolean bWrite( BoardDto boardDto) {
-        // - 파일 업로드
-        fileService.fileUpload( boardDto.getBfile() );
-
         // 글자 작성을 요청한 회원의 로그인회원번호 구하기
         // 1. 로그인 세션에서 값 호출
         Object object = memberService.mLoginCheck();
@@ -37,7 +34,19 @@ public class BoardService {
         int loginNo = memberDto.getNo();
         // 4. BoardDto 담아주기
         boardDto.setNo( loginNo );
+
+        // - 파일 업로드 처리
+            if( boardDto.getUploadFile().isEmpty() ){ // - 업로드 된 파일이 존재  하지 않으면
+            }else{ // 존재하면
+                String uploadFileName = fileService.fileUpload( boardDto.getUploadFile() );
+                // 1. 만약에 업로드가 실패 했으면  글쓰기 실패
+                if( uploadFileName == null ) return false;
+                // 2. BoardDto 에 업로드 된 파일명 담아주기
+                boardDto.setBfile( uploadFileName );
+            }
+        // ---- DB 처리
         return boardDao.bWrite( boardDto );
+
     }
 }
 
