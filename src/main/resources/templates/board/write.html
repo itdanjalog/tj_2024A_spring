@@ -10,13 +10,11 @@
     <form>
         <div>
             카테고리 : <select class="categoryBox">
-                    <option value="1"> 자유 </option>
-                    <option value="2"> 노하우 </option>
-                    <option value="3"> 판매 </option>
+                    <option value="카테고리번호FK"> 카테고리이름 </option>
                 </select>
         <div>
-        <div> 제목 : <input type="text"  /> </div>
-        <div> 내용 : <textarea> </textarea> </div>
+        <div> 제목 : <input type="text" class="btitle"  /> </div>
+        <div> 내용 : <textarea class="bcontent"> </textarea> </div>
         <button type="button" onclick="doBoardWrite()">글쓰기</button>
     </form>
     <script src="/js/board/write.js"></script>

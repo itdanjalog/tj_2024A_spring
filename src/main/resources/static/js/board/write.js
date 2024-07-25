@@ -24,3 +24,54 @@ function bcFindAll(){
     })
 }
 
+// 2. 게시물 쓰기
+function doBoardWrite(){
+    // 1. 입력받은 값 가져오기
+        // - select 목록 에서 선택한 option의 value 호출
+    let bcno = document.querySelector('.categoryBox').value
+    let btitle = document.querySelector('.btitle').value
+    let bcontent = document.querySelector('.bcontent').value
+    // 2. 객체화
+    let info = {
+        bcno : bcno , btitle : btitle , bcontent : bcontent
+    }; console.log( info );
+    // 3. AJAX 통신
+    $.ajax({
+        method : 'post' ,
+        url : "/board/write" ,
+        data : JSON.stringify( info ) ,
+        contentType : "application/json" ,
+        success : (r)=>{ console.log(r);
+            if( r ){
+                alert('글쓰기성공');
+                location.href="/board";
+            }else{ alert('글쓰기실패'); }
+        } ,
+        error : (e)=>{ console.log(e); }
+    });
+    // 4. 통신 결과에 실행문
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
