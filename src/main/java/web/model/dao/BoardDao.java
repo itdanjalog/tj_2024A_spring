@@ -57,6 +57,63 @@ public class BoardDao extends Dao {
         }catch (Exception e ){   System.out.println(e); }
         return false;
     }
+
+    // 3. 게시물 전체 조회 처리
+    public List<BoardDto> bFindAll(){  System.out.println("BoardDao.bFindAll");
+        List<BoardDto> list = new ArrayList<>();
+        try{ String sql = "select * from board inner join member " +
+                " on board.no = member.no;";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while ( rs.next() ){
+                // 레코드 를 하나씩 조회해서 Dto vs Map 컬렉션
+                BoardDto boardDto = BoardDto.builder()
+                        .bno( rs.getInt("bno") )
+                        .btitle( rs.getString("btitle") )
+                        .id( rs.getString("id") )
+                        .bdate( rs.getString("bdate") )
+                        .bview( rs.getInt("bview") )
+                        .build();
+                list.add( boardDto );
+            }
+        }catch (Exception e ){  System.out.println(e); }
+        return list;
+    }
+
+    // 4. 게시물 개별 조회 처리
+    public BoardDto bFindBno( int bno ){ System.out.println("BoardDao.bFindBno");System.out.println("bno = " + bno);
+        try{
+            String sql = "select bc.bcno , bcname, " +
+                    " bno , btitle  , bcontent , " +
+                    "        id , bdate , bview , bfile " +
+                    " from board b " +
+                    " inner join member m " +
+                    "            inner join bcategory bc " +
+                    " on b.no = m.no and b.bcno = bc.bcno " +
+                    " where b.bno = ? ";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt( 1 , bno );
+            ResultSet rs = ps.executeQuery();
+            if( rs.next() ){
+                // 레코드 를 하나씩 조회해서 Dto vs Map 컬렉션
+                BoardDto boardDto = BoardDto.builder()
+                        .bcno( rs.getInt("bcno") )
+                        .bno ( rs.getInt("bno"))
+                        .bcname( rs.getString("bcname"))
+                        .btitle( rs.getString("btitle"))
+                        .bcontent( rs.getString("bcontent"))
+                        .id( rs.getString("id"))
+                        .bdate( rs.getString("bdate"))
+                        .bview( rs.getInt("bview"))
+                        .bfile( rs.getString("bfile"))
+                        .build();
+                return boardDto;
+            }
+        }catch (Exception e ){  System.out.println(e); }
+        return null;
+    }
+
+
 }
 
 

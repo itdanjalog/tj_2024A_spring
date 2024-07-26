@@ -3,6 +3,7 @@ package web.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import web.model.dao.BoardDao;
 import web.model.dto.BoardDto;
@@ -48,7 +49,32 @@ public class BoardService {
         return boardDao.bWrite( boardDto );
 
     }
+    // 3. 게시물 전체 조회 처리
+    public List<BoardDto> bFindAll(){
+        return boardDao.bFindAll();
+    }
+    // 4. 게시물 개별 조회 처리
+    public BoardDto bFindBno( int bno ){
+        return boardDao.bFindBno( bno );
+    }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -27,5 +27,31 @@ public class BoardController {
         System.out.println("boardDto = " + boardDto);
         return boardService.bWrite( boardDto );
     }
+    // 3. 게시물 전체 조회 처리
+    @GetMapping("/find/all")
+    public List<BoardDto> bFindAll(){
+        return boardService.bFindAll();
+    }
+    // 4. 게시물 개별 조회 처리
+    @GetMapping("/find/bno")
+    public BoardDto bFindBno( int bno ){
+        return boardService.bFindBno(bno);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
