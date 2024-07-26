@@ -7,10 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.*;
+import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.UUID;
 
@@ -91,13 +89,20 @@ public class FileService {
                 // response.getOutputStream() : HTTP 응답 할때 바이트형식의 스트림 사용
             //BufferedOutputStream fout = new BufferedOutputStream( response.getOutputStream()  );
             ServletOutputStream fout = response.getOutputStream();
+            // --- HTTP응답의 헤더 속성 추가  .setHeader( key , value )
+                // Content-Disposition : 브라우저가 제공하는 다운로드 형식
+                // attachment;filename="다운로드 형식에 표시될 파일명"
+                    // - URLEncoder.encode() : URL 경로상의 한글을 인코딩
+                    // filename.split("_")[1] : '_' 기준으로 분해해서 UUID 를 제외한 실제 파일명만 추출
+            response.setHeader(
+                    "Content-Disposition" ,
+                    "attachment;filename="+ URLEncoder.encode( filename.split("_")[1] , "UTF-8") );
             // 3-2 바이트배열 내보내기/출력/쓰기
             fout.write( bytes );
             fout.close();  // - 버퍼 닫기
         }catch (Exception e ){
             System.out.println("e = " + e);
         }
-
     }
 }
 
