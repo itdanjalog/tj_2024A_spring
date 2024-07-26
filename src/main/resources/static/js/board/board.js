@@ -5,11 +5,11 @@ doBoardFindAll();
 function doBoardFindAll(){
     let list = []
     $.ajax({
-        // async : false ,  // false동기화 vs true비동기화( innerHTML 후 에 응답 온다.)
+        async : false ,  // false동기화 vs true비동기화( innerHTML 후 에 응답 온다.)
         method : "get" ,
         url : "/board/find/all" ,
         success : r => {    console.log( r );
-            // 응답 데이터 : 타입 확인!!
+            // 응답 데이터의 타입이 리스트 인지 객체1개 인지 확인 필요.
             list = r;
         }
     })
@@ -20,11 +20,11 @@ function doBoardFindAll(){
         //
         list.forEach( b =>{
             html += `<tr>
-                    <th> 1 </th>
-                    <th> <a href="/board/view?bno=1">안녕하세요</a>
-                    </th> <th> 유재석 </th>
-                    <th> 2024-07-25 </th>
-                    <th> 3 </th>
+                    <th> ${ b.bno } </th>
+                    <th> <a href="/board/view?bno=${ b.bno }">${ b.btitle }</a>
+                    </th> <th> ${ b.id } </th>
+                    <th> ${ b.bdate } </th>
+                    <th> ${ b.bview }</th>
                     </tr>`
         })
     // 3. 출력
