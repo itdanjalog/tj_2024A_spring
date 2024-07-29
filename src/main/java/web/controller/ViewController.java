@@ -47,6 +47,10 @@ public class ViewController {
     @GetMapping("/board/view") // 게시물 상세 페이지
     public String bView(){  return "/board/view.html";   }
 
+    // ======== [4] api 관련 =================== //
+    @GetMapping("/api")
+    public String api(){ return "/api/datago.html";}
+
 }
 
 
