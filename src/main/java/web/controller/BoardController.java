@@ -33,9 +33,11 @@ public class BoardController {
     public  BoardPageDto bFindAll(
             BoardPageDto pageDto
             // 1. page : 페이징 처리 에서 사용할 현재 페이지번호
+            // 2. bcno : 현재 선택된 카테고리 번호
     ){
         return boardService.bFindAll( pageDto );
     }
+
     // 4. 게시물 개별 조회 처리
     @GetMapping("/find/bno")
     public BoardDto bFindBno( int bno ){

@@ -61,10 +61,36 @@ select * from board inner join member on board.no = member.no limit 5 , 5 ;
 -- 정렬 : 작성일 순으로 
 select * from board inner join member on board.no = member.no order by board.bno desc limit 0 , 5 ;
 
--- [1] 레코드 개수 세기 
+-- [1] 레코드 총 개수 세기
+	# count( * ) 		: 조회 한 레코드의 총 개수 반환 하는 함수 , 필드가 null 포함 해서 개수 계산 
+    # count( 필드명 ) 	: 조회 한 레코드의 총 개수 반환 하는 함수 , 특정 필드의 null 제외한 개수 계산
+# 1. 레코드 조회 
+select * from board;
+# 2. 레코드 총개수 조회 
+select count(*) from board;			# 7  , null 포함 레코드 총 개수 
+# 2. 레코드 총개수 조회 
+select count( bno ) from board;		# 7	 , 해당 필드의 null 제외한 레코드 총 개수 
+select count( bfile ) from board; 	# 2  , 해당 필드의 null 제외한 레코드 총 개수 
 
+-- 활용1. 전체 게시물 수
+select count(*) as 총게시물수 from board;  
+-- 활용2. 카테고리별 게시물 수
+select * from bcategory;
+select count(*) as 총게시물수 from board where bcno = 1;	# 1. (자유)1번카테고리 의 전체 게시물 수
+select count(*) as 총게시물수 from board where bcno = 2;  	# 2. (노하우)2번카테고리 의 전체 게시물 수
+select count(*) as 총게시물수 from board where bcno = 3;  	# 3. (판매)3번카테고리 의 전체 게시물 수
+select count(*) as 총게시물수 from board where bcno = 'a';  	# 4. (구매)4번카테고리 의 전체 게시물 수
+	# JDBC
+    # select count(*) as 총게시물수 from board where bcno = ?;
+    
+-- 활용3. 전체 게시물의 페이징 처리 
+select * from board inner join member on board.no = member.no order by board.bno desc limit 0 , 5 ;
 
-
+-- 활용4. 카테고리별 게시물의 페이징 처리 
+	-- select 필드명 from 테이블명1 inner join 테이블명2 on 조인조건 where 일반조건 order by 정렬조건 limit 레코드제한;
+select * from board inner join member on board.no = member.no  where bcno = 1 order by board.bno desc limit 0 , 5 ;
+    # JDBC 
+    # select * from board inner join member on board.no = member.no where bcno = ? order by board.bno desc limit ? , ? ;
 
 
 

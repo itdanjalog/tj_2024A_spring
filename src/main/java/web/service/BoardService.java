@@ -52,15 +52,18 @@ public class BoardService {
     }
     // 3. 게시물 전체 조회 처리
     public BoardPageDto bFindAll( BoardPageDto pageDto ){
+
         System.out.println("pageDto = " + pageDto);
         // - 만약에 페이지번호가 매개변수로 존재하지 않으면 1페이지로 설정
         if( pageDto.getPage() == 0 ){ pageDto.setPage( 1 ); }
         // 1. 하나의 페이지당 표시할 게시물 수
-        int pageBoardSize = 2; // - 하나의 페이지당 5개씩 표시
+        int pageBoardSize = 5; // - 하나의 페이지당 5개씩 표시
         // 2. 페이지당 게시물을 출력할 시작레코드 번호
         int startRow = ( pageDto.getPage() - 1) *  pageBoardSize;
-        // 4. 전체게시물수 :
-        int totalBoardSize = boardDao.getTotalBoardSize();
+
+        // 4. 전체게시물수 : 조건추가) 카테고리번호 별
+        int totalBoardSize = boardDao.getTotalBoardSize( pageDto.getBcno() );
+
         // 3. totalPage : 전체 페이지수 구하기
             // 총 페이지수 계산식 : 전체게시물수 / 페이지당게시물수 , 몫:페이지수 , 나머지가 존재하면 페이지수 1 를 더한다.
                 /* ex) 총 게시물수 : 23개 , 페이지당 5개씩 게시물 출력 , 총 페이지수 : 4페이지 +1 => 5페이지
@@ -95,8 +98,9 @@ public class BoardService {
         int endBtn = startBtn + btnSize - 1; // 페이지별 끝 버튼 번호 변수
         if( endBtn >= totalPage ) endBtn = totalPage; // 만일 끝 번호가 마지막페이지 보다 커질수 없다.
 
-        // - 게시물 정보 조회
-        List<BoardDto> data = boardDao.bFindAll( startRow , pageBoardSize );
+        // - 게시물 정보 조회 : 조건추가1)페이징처리 , 조건추가2)카테고리별
+        List<BoardDto> data = boardDao.bFindAll( startRow , pageBoardSize , pageDto.getBcno() );
+
         // 반환 객체 구성
         BoardPageDto boardPageDto = BoardPageDto.builder()
                 .page( pageDto.getPage() ) // 1. 현재 페이지 번호

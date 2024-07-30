@@ -16,4 +16,5 @@ public class BoardPageDto {
     private List<BoardDto> data; // 4. 조회된 게시물 정보 목록/리스트
     private int startBtn; // 5. 페이지별 시작버튼 번호
     private int endBtn; // 6. 페이지별 끝버튼 번호
+    private int bcno; // 7. 현재 카테고리 번호
 }

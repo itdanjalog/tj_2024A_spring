@@ -58,9 +58,17 @@ public class BoardDao extends Dao {
         return false;
     }
 
-    // 3-2. 전체 게시물수 반환 처리
-    public int getTotalBoardSize( ){
-        try{ String sql ="select count(*) as 총게시물수 from board;";
+    // 3-2. 전체 게시물수 반환 처리 , 조건추가1) 카테고리
+    public int getTotalBoardSize( int bcno ){
+        try{ String sql ="select count(*) as 총게시물수 from board ";
+
+            // 카테고리가 존재하면 , 0 이면 : 카테고리가 없다는 의미 , 1 이상 : 카테고리의 pk번호
+            if( bcno >= 1 ){ sql += " where bcno = "+bcno; }
+
+            System.out.println( " sql : " + sql );
+                // 1. 전체보기 : select count(*) as 총게시물수 from board
+                // 2. 카테고리 보기 : select count(*) as 총게시물수 from board where bcno = 숫자
+
             PreparedStatement ps = conn.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             if( rs.next() ){
@@ -71,13 +79,21 @@ public class BoardDao extends Dao {
     }
 
     // 3. 게시물 전체 조회 처리
-    public List<BoardDto> bFindAll( int startRow , int pageBoardSize ){  System.out.println("BoardDao.bFindAll");
+    public List<BoardDto> bFindAll( int startRow , int pageBoardSize , int bcno ){  System.out.println("BoardDao.bFindAll");
         List<BoardDto> list = new ArrayList<>();
-        try{ String sql = "select * " +
-                " from board inner join member " +  // 조인 테이블
-                " on board.no = member.no " +       // 조인 조건
-                " order by board.bno desc " +       // 정렬 , 내림차순
-                " limit ? , ?";                     // 레코드 제한 , 페이징처리
+        try{
+            String sql = "select * " +              // 1. 조회
+                " from board inner join member " +  // 2. 조인 테이블
+                " on board.no = member.no ";        // 3. 조인 조건
+            // 4. 일반 조건
+                // - 전체보기 이면 where절 생략 , bcno = 0 이면
+                // - 카테고리별 보기 이면 where 절 추가 , bcno >= 1 이상
+            if( bcno >= 1 ){ sql += " where bcno = " + bcno ; }
+            // 5. 정렬 조건 , 내림차순
+            sql += " order by board.bno desc ";
+            // 6. 레코드 제한 , 페이징처리
+            sql += " limit ? , ? ";
+
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt( 1 , startRow );
             ps.setInt( 2 , pageBoardSize );
