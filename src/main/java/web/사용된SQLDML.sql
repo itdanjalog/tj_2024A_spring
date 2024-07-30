@@ -61,6 +61,8 @@ select * from board inner join member on board.no = member.no limit 5 , 5 ;
 -- 정렬 : 작성일 순으로 
 select * from board inner join member on board.no = member.no order by board.bno desc limit 0 , 5 ;
 
+-- [1] 레코드 개수 세기 
+
 
 
 

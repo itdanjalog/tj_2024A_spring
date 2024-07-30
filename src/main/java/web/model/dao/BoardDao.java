@@ -58,6 +58,18 @@ public class BoardDao extends Dao {
         return false;
     }
 
+    // 3-2. 전체 게시물수 반환 처리
+    public int getTotalBoardSize( ){
+        try{ String sql ="select count(*) as 총게시물수 from board;";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            if( rs.next() ){
+                return rs.getInt( 1 ); // "총게시물수"
+            }
+        }catch (Exception e ){ System.out.println("e = " + e); }
+        return 0;
+    }
+
     // 3. 게시물 전체 조회 처리
     public List<BoardDto> bFindAll( int startRow , int pageBoardSize ){  System.out.println("BoardDao.bFindAll");
         List<BoardDto> list = new ArrayList<>();

@@ -1,23 +1,28 @@
 console.log( "board.js")
 
 // 1. 전체 게시물 조회
-doBoardFindAll();
-function doBoardFindAll(){
-    let list = []
+doBoardFindAll( 1 );
+function doBoardFindAll( page ){
+
+    let boardPageDto = { } // ajax로부터 응답받은 객체를 저장하는 변수
+
     $.ajax({
         async : false ,  // false동기화 vs true비동기화( innerHTML 후 에 응답 온다.)
         method : "get" ,
         url : "/board/find/all" ,
+        data : { page : page  },
         success : r => {    console.log( r );
-            // 응답 데이터의 타입이 리스트 인지 객체1개 인지 확인 필요.
-            list = r;
+            // 응답 데이터의 타입이 Array , Object 인지 확인 필요.
+            boardPageDto = r;
         }
-    })
+    }) // ajax end
+
     // 1. 어디에
     let boardBody = document.querySelector('.boardBody')
     // 2. 무엇을
     let html = ''
         //
+        let list = boardPageDto.data;
         list.forEach( b =>{
             html += `<tr>
                     <th> ${ b.bno } </th>
@@ -29,4 +34,44 @@ function doBoardFindAll(){
         })
     // 3. 출력
     boardBody.innerHTML = html;
-}
+
+
+    // 4. 페이지네이션( 페이지버튼 ) 구성
+        // 4-1 어디에
+        let pagination = document.querySelector('.pagination')
+
+        // 4-2 무엇을
+        let pageHTML = ``;
+            // 이전버튼 , page : 현재 함수의 매개변수이면서 현재페이지번호 의미 , 현재페이지 - 1 , 만약에 현재페이지-1 했을때 1보다 작으면 1 고정 하고 아니면 -1차감
+            pageHTML += `<li class="page-item"><a class="page-link" onclick="doBoardFindAll( ${ page-1 < 1 ? 1 : page-1 } )">이전</a></li>`;
+            // 페이지버튼
+                // 페이지 마다 시작 버튼 번호 :
+                // 페이지 마다 끝 버튼 번호 :
+                // 최대 페이지수 : totalPage
+            let totalPage = boardPageDto.totalPage;
+
+            for( let current = 1 ; current <= totalPage ; current++ ){
+                pageHTML += `<li class="page-item"><a class="page-link" onclick="doBoardFindAll(${current})">${current}</a></li>`;
+            }
+            // 다음버튼 , page : 현재 함수의 매개변수 이면서 현재페이지번호 의미 , 현재페이지 + 1 , 만약에 현재페이지+1 했을때 최대페이지수 보다 커지면 최대페이지수 고정 아니면 +1 증가
+            pageHTML += `<li class="page-item">
+                            <a class="page-link" onclick="doBoardFindAll( ${ page+1 > totalPage ? totalPage : page+1 } )">다음</a>
+                        </li>`;
+
+        // 4-3 출력
+        pagination.innerHTML = pageHTML;
+
+} // method end
+
+
+
+
+
+
+
+
+
+
+
+
+
