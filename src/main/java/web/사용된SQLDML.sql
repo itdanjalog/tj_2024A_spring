@@ -79,7 +79,7 @@ select * from bcategory;
 select count(*) as 총게시물수 from board where bcno = 1;	# 1. (자유)1번카테고리 의 전체 게시물 수
 select count(*) as 총게시물수 from board where bcno = 2;  	# 2. (노하우)2번카테고리 의 전체 게시물 수
 select count(*) as 총게시물수 from board where bcno = 3;  	# 3. (판매)3번카테고리 의 전체 게시물 수
-select count(*) as 총게시물수 from board where bcno = 'a';  	# 4. (구매)4번카테고리 의 전체 게시물 수
+select count(*) as 총게시물수 from board where bcno = 4;  	# 4. (구매)4번카테고리 의 전체 게시물 수
 	# JDBC
     # select count(*) as 총게시물수 from board where bcno = ?;
     

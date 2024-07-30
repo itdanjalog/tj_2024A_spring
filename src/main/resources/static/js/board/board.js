@@ -1,8 +1,11 @@
 console.log( "board.js")
 
 // 1. 전체 게시물 조회
-doBoardFindAll( 1 );
-function doBoardFindAll( page ){
+    // 매개변수
+    // 1. page : 보고자 하는 현재 페이지번호 , 초기값 : 1 , 첫페이지를 1페이지로 하기 위해서
+    // 2. bcno : 보고자 하는 카테고리 번호  , 초기값 : 0 , 전체보기를 0 으로 하기 위해서
+doBoardFindAll( 1 , 0 );
+function doBoardFindAll( page , bcno ){
 
     let boardPageDto = { } // ajax로부터 응답받은 객체를 저장하는 변수
 
@@ -10,7 +13,7 @@ function doBoardFindAll( page ){
         async : false ,  // false동기화 vs true비동기화( innerHTML 후 에 응답 온다.)
         method : "get" ,
         url : "/board/find/all" ,
-        data : { page : page  },
+        data : { page : page  , bcno : bcno },
         success : r => {    console.log( r );
             // 응답 데이터의 타입이 Array , Object 인지 확인 필요.
             boardPageDto = r;
