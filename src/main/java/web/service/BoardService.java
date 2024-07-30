@@ -50,8 +50,14 @@ public class BoardService {
 
     }
     // 3. 게시물 전체 조회 처리
-    public List<BoardDto> bFindAll(){
-        return boardDao.bFindAll();
+    public List<BoardDto> bFindAll( int page ){
+        // 1. 하나의 페이지당 표시할 게시물 수
+        int pageBoardSize = 5; // - 하나의 페이지당 5개씩 표시
+        // 2. 페이지당 게시물을 출력할 시작레코드 번호
+        int startRow = (page - 1) *  pageBoardSize;
+
+        // -
+        return boardDao.bFindAll( startRow , pageBoardSize );
     }
     // 4. 게시물 개별 조회 처리
     public BoardDto bFindBno( int bno ){

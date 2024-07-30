@@ -29,8 +29,10 @@ public class BoardController {
     }
     // 3. 게시물 전체 조회 처리
     @GetMapping("/find/all")
-    public List<BoardDto> bFindAll(){
-        return boardService.bFindAll();
+    public List<BoardDto> bFindAll(
+            int page // 1. 페이징 처리 에서 사용할 현재 페이지번호
+    ){
+        return boardService.bFindAll( page );
     }
     // 4. 게시물 개별 조회 처리
     @GetMapping("/find/bno")

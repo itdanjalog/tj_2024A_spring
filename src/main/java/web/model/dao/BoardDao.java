@@ -59,11 +59,16 @@ public class BoardDao extends Dao {
     }
 
     // 3. 게시물 전체 조회 처리
-    public List<BoardDto> bFindAll(){  System.out.println("BoardDao.bFindAll");
+    public List<BoardDto> bFindAll( int startRow , int pageBoardSize ){  System.out.println("BoardDao.bFindAll");
         List<BoardDto> list = new ArrayList<>();
-        try{ String sql = "select * from board inner join member " +
-                " on board.no = member.no;";
+        try{ String sql = "select * " +
+                " from board inner join member " +  // 조인 테이블
+                " on board.no = member.no " +       // 조인 조건
+                " order by board.bno desc " +       // 정렬 , 내림차순
+                " limit ? , ?";                     // 레코드 제한 , 페이징처리
             PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt( 1 , startRow );
+            ps.setInt( 2 , pageBoardSize );
             ResultSet rs = ps.executeQuery();
             while ( rs.next() ){
                 // 레코드 를 하나씩 조회해서 Dto vs Map 컬렉션
