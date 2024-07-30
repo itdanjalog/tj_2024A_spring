@@ -45,13 +45,18 @@ function doBoardFindAll( page ){
             // 이전버튼 , page : 현재 함수의 매개변수이면서 현재페이지번호 의미 , 현재페이지 - 1 , 만약에 현재페이지-1 했을때 1보다 작으면 1 고정 하고 아니면 -1차감
             pageHTML += `<li class="page-item"><a class="page-link" onclick="doBoardFindAll( ${ page-1 < 1 ? 1 : page-1 } )">이전</a></li>`;
             // 페이지버튼
-                // 페이지 마다 시작 버튼 번호 :
-                // 페이지 마다 끝 버튼 번호 :
+                // 페이지 마다 시작 버튼 번호 : startBtn
+            let startBtn = boardPageDto.startBtn;
+                // 페이지 마다 끝 버튼 번호 : endBtn
+            let endBtn = boardPageDto.endBtn;
                 // 최대 페이지수 : totalPage
             let totalPage = boardPageDto.totalPage;
-
-            for( let current = 1 ; current <= totalPage ; current++ ){
-                pageHTML += `<li class="page-item"><a class="page-link" onclick="doBoardFindAll(${current})">${current}</a></li>`;
+                // + current는 startBtn 부터 endBtn 까지 반복
+                // current == page ? 'active' : '' : current번째 값이 현재 페이지이면 active 클래스 대입
+            for( let current = startBtn ; current <= endBtn ; current++ ){
+                pageHTML += `<li class="page-item">
+                                <a class="page-link ${ current == page ? 'active' : '' }" onclick="doBoardFindAll(${current})">${current}</a>
+                            </li>`;
             }
             // 다음버튼 , page : 현재 함수의 매개변수 이면서 현재페이지번호 의미 , 현재페이지 + 1 , 만약에 현재페이지+1 했을때 최대페이지수 보다 커지면 최대페이지수 고정 아니면 +1 증가
             pageHTML += `<li class="page-item">
