@@ -63,7 +63,9 @@ public class BoardDao extends Dao {
             int bcno ,
             String searchKey , String searchKeyword ){
 
-        try{ String sql ="select count(*) as 총게시물수 from board ";
+        try{ String sql ="select count(*) as 총게시물수 " +
+                " from board inner join member " +
+                " on board.no = member.no ";
 
             // 카테고리가 존재하면 , 0 이면 : 카테고리가 없다는 의미 , 1 이상 : 카테고리의 pk번호
             if( bcno >= 1 ){ sql += " where bcno = "+bcno; } // 1. 전체보기 : select count(*) as 총게시물수 from board  // 2. 카테고리 보기 : select count(*) as 총게시물수 from board where bcno = 숫자
