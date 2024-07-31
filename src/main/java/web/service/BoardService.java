@@ -119,6 +119,9 @@ public class BoardService {
     }
     // 4. 게시물 개별 조회 처리
     public BoardDto bFindBno( int bno ){
+        // 조회수 증가 처리
+        boardDao.bViewIncrease( bno );
+
         return boardDao.bFindBno( bno );
     }
 

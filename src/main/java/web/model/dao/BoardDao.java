@@ -172,17 +172,18 @@ public class BoardDao extends Dao {
         return null;
     }
 
-
-}
-
-
-
-
-
-
-
-
-
+    // 5. 조회수 증가 처리
+    public boolean bViewIncrease( int bno ){
+        try{
+            String sql ="update board set bview = bview + 1 where bno =? ";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt( 1 , bno );
+            int count = ps.executeUpdate();
+            if( count == 1 ) return true;
+        }catch (Exception e ){  System.out.println(e); }
+        return false;
+    } // 5 f end
+} // class end
 
 
 
