@@ -23,13 +23,22 @@ function doBoardFindBno( bno ){
         success : r => { console.log(r); board = r} // 응답 받은 데이터을 ajax 밖 변수에 대입
     }) // AJAX END
     document.querySelector('.bcName').innerHTML = `${ board.bcname }`;
-    document.querySelector('.etcBox').innerHTML = `${ board.id } / ${ board.bview } / ${ board.bdate }`;
+    document.querySelector('.etcBox').innerHTML = `<span> 작성자 ${ board.id } </span> 
+                                                    <span> 조회수 ${ board.bview } </span> 
+                                                    <span> 작성일 ${ board.bdate } </span>`;
+                                                    
     document.querySelector('.bTitle').innerHTML = `${ board.btitle }`;
     document.querySelector('.bContent').innerHTML = `${ board.bcontent }`;
-    document.querySelector('.bFile').innerHTML = `${ board.bfile } <a href="/file/download?filename=${ board.bfile }">다운로드</a>`;
+
+    if( board.bfile == null ){ // - 첨부파일이 없을때
+        document.querySelector('.bFile').innerHTML = '';
+    }else{  // - 첨부파일이 있을때
+        document.querySelector('.bFile').innerHTML = `${ board.bfile.split('_')[1] } <a href="/file/download?filename=${ board.bfile }">다운로드</a>`;
+    }
+
     document.querySelector('.btnBox').innerHTML =
             `
-            <button type="button" onclick="location.href='/board/update?bno=${bno}'">수정</button>
-            <button type="button" onclick="doBoardDelete(${bno})">삭제</button>
+            <button type="button" class="btn btn-primary" onclick="location.href='/board/update?bno=${bno}'">수정</button>
+            <button type="button" class="btn btn-primary" onclick="doBoardDelete(${bno})">삭제</button>
             `;
 }
