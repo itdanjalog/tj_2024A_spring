@@ -1,11 +1,52 @@
-console.log( "board.js")
+console.log( "board.js");
 
+// * 페이지 정보들을 관리하는 객체 , 전역변수 , 함수의 매개변수로 관리가힘듬. */
+let pageInfo = { page : 1 ,  bcno : 0 , searchKey : 'btitle' ,  searchKeyword : '' }
+    // 1. page : 현재페이지[기본값 1페이지] , 2.bcno : 현재카테고리[기본값 0전체보기] // 3.searchKey:현재검색필드[기본값:제목필드] 4.searchKeyword:현재검색값[기본값:공백]
+// 4. 카테고리 클릭 했을떄
+function onCategory( bcno ){
+    // 1. 전역변수에 bcno 대입
+    pageInfo.bcno = bcno;       console.log( '카테고리 변경 '); console.log( pageInfo );
+    doBoardFindAll( 1 );   // 2. 새로고침 , 1페이지
+} // f end
+// 3. 카테고리 호출
+function getCategory(){
+     // 1. 어디에
+    let categoryBox = document.querySelector('.categoryBox');
+    // 2. 무엇을
+    let html = `<div class="${ pageInfo.bcno == 0 ? 'categoryActive' : '' }"
+                    style="width:50px" onclick="onCategory( 0 )"> 전체보기 </div>`
+        $.ajax({
+            async : false , method:'get', url:'/board/category',
+            success : r => { console.log(r);
+                r.forEach( c => {
+                    html += `<div class="${ pageInfo.bcno == c.bcno ? 'categoryActive' : '' }" style="width:50px"
+                                onclick="onCategory( ${ c.bcno  } )"> ${ c.bcname } </div>`
+                })
+            }
+        })
+    // 3. 출력
+    categoryBox.innerHTML = html;
+} // f end
+
+// 2. 검색 버튼을 클릭 했을때
+function onSearch( ){
+    // 1. 입력받고
+    let searchKey =  document.querySelector('.searchKey').value;
+    let searchKeyword = document.querySelector('.searchKeyword').value;
+    // 2. 전역변수에 대입
+    pageInfo.searchKey = searchKey;
+    pageInfo.searchKeyword = searchKeyword;
+    // 3. 새로고침 , 1페이지
+    doBoardFindAll( 1 )
+}
 // 1. 전체 게시물 조회
-    // 매개변수
-    // 1. page : 보고자 하는 현재 페이지번호 , 초기값 : 1 , 첫페이지를 1페이지로 하기 위해서
-    // 2. bcno : 보고자 하는 카테고리 번호  , 초기값 : 0 , 전체보기를 0 으로 하기 위해서
-doBoardFindAll( 1 , 0 );
-function doBoardFindAll( page , bcno ){
+    // 매개변수:  page : 보고자 하는 현재 페이지번호 , 초기값 : 1 , 첫페이지를 1페이지로 하기 위해서
+doBoardFindAll( 1 );
+function doBoardFindAll( page ){
+
+    pageInfo.page = page; // 현재페이지 번호를 전역변수에 대입
+    getCategory(); // 카테고리 호출
 
     let boardPageDto = { } // ajax로부터 응답받은 객체를 저장하는 변수
 
@@ -13,7 +54,7 @@ function doBoardFindAll( page , bcno ){
         async : false ,  // false동기화 vs true비동기화( innerHTML 후 에 응답 온다.)
         method : "get" ,
         url : "/board/find/all" ,
-        data : { page : page  , bcno : bcno },
+        data : pageInfo , // 전역변수 보내기
         success : r => {    console.log( r );
             // 응답 데이터의 타입이 Array , Object 인지 확인 필요.
             boardPageDto = r;
