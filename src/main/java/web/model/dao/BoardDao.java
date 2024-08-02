@@ -183,7 +183,44 @@ public class BoardDao extends Dao {
         }catch (Exception e ){  System.out.println(e); }
         return false;
     } // 5 f end
+
+    // 5.게시물의 댓글 쓰기 처리
+    public boolean bReplyWrite( Map<String , String > map ){ System.out.println("BoardDao.bReplyWrite"); System.out.println("map = " + map);
+        // brindex , brcontent , no , bno 왜?? 4가지를 저장하는지?
+        try{String sql = "insert into breply( brindex , brcontent , no , bno ) " +
+                " values(?,?,?,?)";
+            PreparedStatement ps = conn.prepareStatement( sql );
+            ps.setInt( 1 , Integer.parseInt( map.get("brindex") ) );
+            // 왜? Integer.parseInt 하는지?
+            ps.setString( 2 , map.get("brcontent") );
+            ps.setInt( 3 , Integer.parseInt( map.get("no") ) );
+            ps.setInt( 4 , Integer.parseInt( map.get("bno") ) );
+            int count = ps.executeUpdate();
+            if( count == 1 ) return true;  // 왜? if( count == 1 ) 하는지?
+        }catch (Exception e ) { System.out.println(e); }
+        return false; // 왜?? true/false 사용하는지?
+    }
+
 } // class end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

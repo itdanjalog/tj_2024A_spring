@@ -125,6 +125,15 @@ public class BoardService {
         return boardDao.bFindBno( bno );
     }
 
+    // 5.게시물의 댓글 쓰기 처리 // ?? 왜?? Mapping 없는지??
+    public boolean bReplyWrite( Map<String , String > map ){ System.out.println("BoardService.bReplyWrite"); System.out.println("map = " + map);
+        Object object = memberService.mLoginCheck(); // 왜??? 로그인 정보는 세션 객체에 저장 되어 있는지??
+        if( object == null ){ return false; }   // 왜 ?? object 사용하는지??
+        MemberDto loginDto = (MemberDto)object;
+        int no = loginDto.getNo();
+        map.put( "no" , String.valueOf( no )  ); // 왜 ?? String.valueOf()
+        return boardDao.bReplyWrite( map ); // ?? 왜 dao 사용하는지?
+    }
 }
 
 

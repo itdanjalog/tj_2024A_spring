@@ -45,3 +45,36 @@ select *from board;
 # 1. 카테고리 샘플 
 insert into bcategory( bcname ) values ( '자유' ) , ( '노하우' ) , ( '판매' ) , ( '구매') ;
 
+#  게시물의 댓글 
+drop table  if exists breply;
+create table breply(
+	brno   bigint unsigned auto_increment ,  -- 댓글번호 [ pk ]
+    brindex bigint unsigned , -- ** 댓글인덱스( 댓글 위치 분류 ) , 0 : 최상위댓글 , 1이상 : PK(brno)참조하는 상위댓글번호  
+    brcontent varchar(255) , -- 댓글내용 
+    brdate datetime default now() , -- 작성일 
+    no bigint , -- 댓글을 작성한 작성자의 회원번호 [fk]
+    bno bigint unsigned ,  -- 댓글이 위치한 게시물번호 [ fk ]
+    primary key( brno ) , 
+    foreign key( no ) references member(no) on update cascade on delete cascade , 
+    foreign key( bno ) references board( bno ) on update cascade on delete cascade
+);
+select * from breply;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
