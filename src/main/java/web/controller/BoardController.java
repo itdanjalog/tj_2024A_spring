@@ -48,7 +48,9 @@ public class BoardController {
     // 5.게시물의 댓글 쓰기 처리
     // ?? 왜 post 사용하는지?  // http://localhost:8080/board/reply/write
     @PostMapping("/reply/write")
-    public boolean bReplyWrite( Map<String , String > map ){ // ?? 왜 map 사용하는지?
+    public boolean bReplyWrite( @RequestBody Map<String , String > map ){
+        // ?? 왜 @RequestBody 사용하는지 ??
+        // ?? 왜 map 사용하는지?
         System.out.println("BoardController.bReplyWrite"); System.out.println("map = " + map);
         return boardService.bReplyWrite( map ); // ? 왜 service 사용하는지?
     }

@@ -13,6 +13,7 @@ console.log( "view.js() ")
         // 3. .get( key )               : 쿼리스트링 매개변수의 key에 해당 하는 value 호출
 let bno = new URL( location.href ).searchParams.get('bno'); // 현재 URL 경로상의 bno 값 호출
 console.log( bno );
+
 // 1. 개별 게시물 출력 , 매개변수는 현재 게시물의 번호
 doBoardFindBno( bno )
 function doBoardFindBno( bno ){
@@ -42,3 +43,56 @@ function doBoardFindBno( bno ){
             <button type="button" class="btn btn-primary" onclick="doBoardDelete(${bno})">삭제</button>
             `;
 }
+
+// 2. 댓글 쓰기
+function onReplyWrite(){ console.log( 'onReplyWrite()' );
+    // 1. 입력받은 댓글내용 가져오기
+    let brcontent = document.querySelector('.brcontent').value
+    // 2. 객체화
+    let info ={
+        brindex : 0 , // 댓글분류 , 0 이면 상위댓글
+        brcontent : brcontent ,
+        bno : bno  // 현재 보고 있는 게시물 번호( view.js 상단에서 선언된 변수 )
+    }
+    $.ajax({
+        async : true , method : 'post' ,
+        url : "/board/reply/write" ,
+        data : JSON.stringify( info ) ,  // 왜 ? JSON.stringify 사용하는지 ?
+        contentType : "application/json"  , // 왜? application/json 사용하는지 ?
+            // - contentType : "application/x-www-form-urlencoded" : ajax 기본값(생략시 )
+            // - contentType : false  , --> multipart/form-data 첨부파일( 바이너리 )
+            // - contentType : "application/json"
+        success : r => { console.log(r);
+            if( r == true ){ alert('댓글쓰기 성공');
+                document.querySelector('.brcontent').value = ``;
+            }else{ alert('댓글쓰기 실패 : 로그인후 쓰기가 가능합니다. '); }
+        } // success end
+    }) ; // ajax end
+} // f end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
