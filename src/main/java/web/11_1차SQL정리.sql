@@ -1,21 +1,21 @@
 /*
 	- SQL
-    1. DDL : 정의어 
-		create 		: 테이터베이스/테이블 생성 
+    [1]. DDL : 정의어
+		create 		: 테이터베이스/테이블 생성
 			- create database [데이터베이스명]
             - create table [테이블명]
-        drop 		: 테이터베이스/테이블 삭제 
+        drop 		: 테이터베이스/테이블 삭제
 			- drop database [데이터베이스명]
             - drop table [테이블명]
             * drop database/table if exists [ 데이터베이스명/테이블명 ]
-		use			: 데이터베이스 활성화 
+		use			: 데이터베이스 활성화
 			- use [데이터베이스명]
-		truncate 	: 테이블의 모든 레코드 삭제 
+		truncate 	: 테이블의 모든 레코드 삭제
 			- truncate table [테이블명]
-		show 		: 모든 데이터베이스 목록을 조회하기  
+		show 		: 모든 데이터베이스 목록을 조회하기
 			- show databases;
 
-    2. DML : 조작어 
+    [2]. DML : 조작어
 		select : 조회
 		    - select [필드명] from [테이블명] where [조건절]
         insert : 삽입
@@ -25,7 +25,7 @@
         delete : 삭제
             - delete from [테이블명] where [조건절]
 
-    3. DCL : 제어어 
+    [3]. DCL : 제어어
         grant       : 권한부여
         revoke      : 권한 취소
         - TCL
@@ -33,7 +33,7 @@
         rollback    : 작업 반영 취소
         savepoint   : 작업 위치 지정 ( 이후 해당 위치 이동가능 )
 
-    - 연산자
+    [4] 연산자
         1. 산술연산자 : +더하기 -빼기 *곱하기 /나누기 div몫 mod나머지
         2. 비교연산자 : >초과 <미만 >=이상 <=이하 =같다 !=같지않다.
         3. 논리연산자 : and 이면서 or 이거나 not 부정
@@ -47,26 +47,26 @@
             5. [필드명] as 별칭        : 조회시 사용되는 별칭/별명
             6. distinct [필드명]       : 조회시 필드의 중복값을 제거
 
-    - 다양한 문법 절
-        [1] where 절      : [그룹 전] 일반 조건
+    [5] 다양한 문법 절
+        1. where 절      : [그룹 전] 일반 조건
             where [필드명] 연산자
-        [2] group by 절   : 그룹 조건
+        2. group by 절   : 그룹 조건
             group by [필드명]
-        [3] having 절     : [그룹 후] 그룹내 조건
+        3. having 절     : [그룹 후] 그룹내 조건
             having [필드명] 연산자
-        [4] order by 절      : 정렬 조건
+        4. order by 절      : 정렬 조건
             order by [필드명] [ASC/DESC]
             order by [필드명] [ASC/DESC] , [필드명2] [ASC/DESC]
-        [5] limit 절
+        5. limit 절
             limit 레코드수
             limit 시작레코드번호[0~] , 레코드수
 
-    - 내부 조인 절
-        [1] [테이블명A] , [테이블명B] where 테이블명A.pk필드 = 테이블명B.fk필드;
-        [2] [테이블명A] natural join [테이블명B];
-        [3] [테이블명A] join [테이블명B] on 테이블명A.pk필드 = 테이블명B.fk필드;
-        [4] [테이블명A] inner join [테이블명B] on 테이블명A.pk필드 = 테이블명B.fk필드;
-        [5] [테이블명A] join [테이블명B] using(필드명);
+    [6] 내부 조인 절
+        1. [테이블명A] , [테이블명B] where 테이블명A.pk필드 = 테이블명B.fk필드;
+        2. [테이블명A] natural join [테이블명B];
+        3. [테이블명A] join [테이블명B] on 테이블명A.pk필드 = 테이블명B.fk필드;
+        4. [테이블명A] inner join [테이블명B] on 테이블명A.pk필드 = 테이블명B.fk필드;
+        5. [테이블명A] join [테이블명B] using(필드명);
 
         - select *
             from [테이블명] inner join [테이블명]
@@ -77,17 +77,17 @@
             order by [정렬조건]
             limit[개수제한조건]
 
-    - 제약조건
-        [1] not null    : 필드의 null 포함 불가능
-        [2] default     : 레코드 삽입시 필드의 기본값 설정
-        [3] unique      : 필드의 중복 포함 불가능
-        [4] (mysql) auto_increment : 레코드 삽입시 필드의 자동번호 부여
-        [5] primary key : 식별키 ( 해당 테이블의 고유한 값을 가진 값의 필드 )
-        [6] foreign key : 참조키 ( 다른 테이블의 식별키 필드 를 참조하는 필드 )
-        - 제약조건 옵션
-        on [delete/update] restrict
-        on [delete/update] cascade
-        on [delete/update] set null
+    [7] 제약조건
+        1. not null    : 필드의 null 포함 불가능
+        2. default     : 레코드 삽입시 필드의 기본값 설정
+        3. unique      : 필드의 중복 포함 불가능
+        4. (mysql) auto_increment : 레코드 삽입시 필드의 자동번호 부여
+        5. primary key : 식별키 ( 해당 테이블의 고유한 값을 가진 값의 필드 )
+        6. foreign key : 참조키 ( 다른 테이블의 식별키 필드 를 참조하는 필드 )
+        7. 제약조건 옵션
+            on [delete/update] restrict : pk 필드값이 삭제/수정할때 pk 필드값을 참조하는 FK필드값이 있으면 삭제/수정 취소
+            on [delete/update] cascade  : pk 필드값이 삭제/수정할때 pk 필드값을 참조하는 FK필드값이 있으면 삭제/수정 같이 처리
+            on [delete/update] set null : pk 필드값이 삭제/수정할때 pk 필드값을 참조하는 FK필드값이 있으면 삭제/수정 처리 후 FK 필드값을 NULL 설정
 
     - 필드 타입
         [ 정수 ]
