@@ -1,7 +1,7 @@
 /*프로그래머스 sql 문제 */
-# ============================== 2024-08-06 ================================= #
+# ============== (1일차 SQL 문제) 2024-08-06 =================#
 # 1. 인기있는 아이스크림
-select FLAVOR from FIRST_HALF order by TOTAL_ORDER DESC , SHIPMENT_ID ASC;
+select FLAVOR from FIRST_HALF order by TOTAL_ORDER desc, SHIPMENT_ID asc;
 # 2.모든 레코드 조회하기
 # 3.역순 정렬하기
 # 4. 동물의 아이디와 이름
