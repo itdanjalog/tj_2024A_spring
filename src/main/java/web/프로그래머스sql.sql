@@ -7,16 +7,41 @@ select FLAVOR from FIRST_HALF order by TOTAL_ORDER desc, SHIPMENT_ID asc;
 select * from ANIMAL_INS order by ANIMAL_ID asc;
 
 # 3. [SELECT] 역순 정렬하기
-
+select NAME , DATETIME from ANIMAL_INS order by ANIMAL_ID desc;
 
 # 4. [SELECT] 동물의 아이디와 이름
+select ANIMAL_ID , NAME from ANIMAL_INS order by ANIMAL_ID ASC;
+
 # 5. [SELECT] 여러 기준으로 정렬하기
+select ANIMAL_ID , NAME , DATETIME from ANIMAL_INS order by NAME ASC , DATETIME DESC;
+
 # 6. [SELECT] 과일로 만든 아이스크림 고르기
+select f.FLAVOR
+    from FIRST_HALF f inner join ICECREAM_INFO i
+    on f.FLAVOR = i.FLAVOR
+    where f.TOTAL_ORDER >= 3000 and i.INGREDIENT_TYPE = 'fruit_based'
+    order by f.TOTAL_ORDER desc;
+
 # 7. [SELECT] 강원도에 위치한 생산공장 목록 출력하기
+select FACTORY_ID, FACTORY_NAME, ADDRESS
+    from FOOD_FACTORY
+    where ADDRESS like '강원도%' order by FACTORY_ID;
+
 # 8. [SELECT] 아픈 동물 찾기
+select ANIMAL_ID , NAME from ANIMAL_INS
+    where INTAKE_CONDITION = 'Sick'
+    order by ANIMAL_ID asc
+
 # 9. [SELECT] 어린 동물 찾기
+select ANIMAL_ID , NAME from ANIMAL_INS
+    where INTAKE_CONDITION != 'Aged'
+    order by ANIMAL_ID asc
+
 # 10. [SELECT] 상위 n개 레코드
+select NAME from ANIMAL_INS order by DATETIME asc limit 1;
+
 # 11. [SELECT] Python 개발자 찾기
+
 # ============== (2 일차 SQL 문제) 2024-08-07 =================#
 # 1.[ SUM, MAX, MIN ] 가장 비싼 상품 구하기
 # 2.[ SUM, MAX, MIN ] 최댓값 구하기
