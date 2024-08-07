@@ -41,6 +41,10 @@ select ANIMAL_ID , NAME from ANIMAL_INS
 select NAME from ANIMAL_INS order by DATETIME asc limit 1;
 
 # 11. [SELECT] Python 개발자 찾기
+select ID , EMAIL , FIRST_NAME , LAST_NAME
+    from DEVELOPER_INFOS
+    where SKILL_1 = 'Python' or SKILL_2 = 'Python' or SKILL_3 = 'Python'
+    order by ID ASC;
 
 # ============== (2 일차 SQL 문제) 2024-08-07 =================#
 # 1.[ SUM, MAX, MIN ] 가장 비싼 상품 구하기
