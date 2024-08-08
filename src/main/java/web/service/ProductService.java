@@ -33,6 +33,10 @@ public class ProductService {
         return productDao.pRegister( productDto );
     } // method end
 
+    // 2. 제품 전체 출력 ( 1개 : dto  , 여러개 : List<Dto> )
+    public List<ProductDto> getProductFindAll( ){
+        return productDao.getProductFindAll();
+    }
 
 } // class end
 

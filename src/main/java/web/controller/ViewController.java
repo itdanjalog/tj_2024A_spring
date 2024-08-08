@@ -56,6 +56,10 @@ public class ViewController {
     public String pRegister(){
         return "/product/register.html";
     }
+    @GetMapping("/product")
+    public String product(){
+        return "/product/product.html";
+    }
 
 }
 

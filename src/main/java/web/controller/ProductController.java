@@ -16,4 +16,9 @@ public class ProductController {
     public boolean pRegister( ProductDto productDto  ) {
         return productService.pRegister( productDto );
     }
+    // 2. 제품 전체 출력 ( 1개 : dto  , 여러개 : List<Dto> )
+    @GetMapping("/find/all")
+    public List<ProductDto> getProductFindAll( ){
+        return productService.getProductFindAll();
+    }
 }
