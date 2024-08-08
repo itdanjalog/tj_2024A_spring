@@ -44,6 +44,38 @@ public class ProductDao extends Dao {
         }catch (Exception e ){  System.out.println( e );  }
         return false;
     } // method end
+
+    // 2. 제품 전체 출력 ( 1개 : dto  , 여러개 : List<Dto> )
+    public List<ProductDto> getProductFindAll( ){
+        List<ProductDto> list = new ArrayList<>();
+        try{ // - 1. 전체 제품 조회
+            String sql = "select * from product";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while ( rs.next() ){ // - 제품 객체 생성
+                ProductDto productDto = ProductDto.builder()
+                        .ptitle( rs.getString( "ptitle" ) ) .pcontent( rs.getString( "pcontent") )
+                        .pprice( rs.getInt( "pprice") ) .pno( rs.getInt("pno") )
+                        .pdate( rs.getString("pdate")) .pview( rs.getInt("pview"))
+                        .build();
+                // - 2. 제품의 모든 이미지 조회 : fileNames
+                List<String> fileNames = new ArrayList<>();
+                // 해당 제품의 모든 이미지 조회
+                String sql2 = "select * from productimg where pno = ? ";
+                PreparedStatement ps2 = conn.prepareStatement( sql2 );
+                ps2.setInt( 1 , rs.getInt("pno") );
+                ResultSet rs2 = ps2.executeQuery();
+                while ( rs2.next() ){
+                    fileNames.add( rs2.getString("pimgname") );
+                } // w end
+                // 조회한 모든 이미지를 DTO 담기
+                productDto.setFileNames( fileNames );
+                // - 제품 객체를 리스트에 담기
+                list.add( productDto );
+            } // while end
+        }catch (Exception e ){ System.out.println(e);}
+        return list; // 제품 리스트 반환
+    }
 }// class end
 
 
