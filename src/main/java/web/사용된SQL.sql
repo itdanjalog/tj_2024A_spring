@@ -60,6 +60,31 @@ create table breply(
 );
 select * from breply;
 
+# 제품 테이블 			: 1 , 제품 1개(PK) 당 이미지 여러개(FK) 
+drop table if exists product;
+create table product( 
+	pno int auto_increment , -- 제품번호  		( 테이블당 권장 )
+    ptitle varchar(100) , -- 제품명 
+    pcontent varchar(255) , -- 제품설명 
+    pprice int , -- 제품가격
+    pdate datetime default now() , -- 제품 등록일 ( 테이블당 권장 )
+    pview int default 0 , -- 제품조회수
+    primary key( pno )	-- pk 설정 
+); select * from product;
+
+drop table if exists productimg;
+# 제품 이미지 테이블 	: M	, 
+create table productimg( 
+	pimgno int auto_increment , -- 제품 이미지번호 
+    pimgname text , -- 제품 이미지 이름 
+    pimgdate datetime default now() , -- ( 관례적으로 레코드 등록일는 필수 )
+    pno int , 
+    primary key( pimgno ) ,
+    foreign key( pno ) references product( pno ) 
+    on update cascade on delete cascade -- 만약에 pk가 삭제되면 참조하는 fk 레코드 도 같이 삭제 
+); select * from productimg;
+
+
 
 
 

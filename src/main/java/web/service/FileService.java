@@ -22,9 +22,9 @@ public class FileService {
         // 매개변수로 파일의바이트가 저장된 MultipartFile 인터페이스
         // 업로드 된 파일명 반환
     public String fileUpload(MultipartFile multipartFile ){
-        System.out.println( multipartFile.getContentType() );   // 첨부파일의 확장자
-        System.out.println( multipartFile.getSize() );          // 첨부파일의 바이트 사이즈/용량
-        System.out.println( multipartFile.isEmpty() );          // 첨부파일이 없으면 true , 있으면 false
+        //System.out.println( multipartFile.getContentType() );   // 첨부파일의 확장자
+        //System.out.println( multipartFile.getSize() );          // 첨부파일의 바이트 사이즈/용량
+        //System.out.println( multipartFile.isEmpty() );          // 첨부파일이 없으면 true , 있으면 false
         // 1. 첨부 파일의 실제 파일 이름 추출
             // + 클라이언트(유저)들이 서로 다른 파일내용의 같은 파일명으로 업로드 했을때 식별이 불가능.
             // 해결방안 : 1. UUID( 고유성 보장하는 ID 규약 ) 2.조합식별 설계( 주로 업로드날짜/시간 와 파일명 조합 , 게시물번호 )
@@ -36,7 +36,7 @@ public class FileService {
             // "문자열".replaceAll( "기존문자" , "새로운문자" ) : 만약에 문자열내 기존문자가 존재하면 새로운문자로 치환해서 반환
         fileName = uuid +"_"+ fileName.replaceAll( "_" , "-" ); // 파일명에 '_' 문자가 존재하면 '-' 문자로 변경
 
-        System.out.println("fileName = " + fileName);
+        // System.out.println("fileName = " + fileName);
         // 2. 첨부파일을 저장/복사/이동 할 경로 만들기
 
         // 3. 첨부파일을 저장/복사/이동 경로 와 파일명 합치기
